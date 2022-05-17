@@ -1,0 +1,18 @@
+@charset "utf-8";
+
+.toggle-test label {
+    color: red;
+    cursor: pointer;
+}
+
+.toggle-test input {
+    display: none;
+}
+
+.toggle-test input + select {
+    display: none;
+}
+
+.toggle-test input:checked + select {
+    display: inline;
+}

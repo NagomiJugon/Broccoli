@@ -15,7 +15,7 @@ class CreateTrainningSetsTable extends Migration
     {
         Schema::create('trainning_sets', function (Blueprint $table) {
             $table->id();
-            $table->unsignedTinyInteger( 'weight' );
+            $table->float( 'weight' );
             $table->unsignedTinyInteger( 'reps' );
             $table->unsignedBigInteger( 'result_id' );
             $table->datetime( 'created_at' )->useCurrent();

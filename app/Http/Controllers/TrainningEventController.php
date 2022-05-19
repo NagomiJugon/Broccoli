@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\TrainningEventRegisterGetRequest;
+use App\Http\Requests\TrainningEventRegisterPostRequest;
 use App\Models\MuscleCategory as MuscleCategoryModel;
 use App\Models\TrainningEvent as TrainningEventModel;
 
@@ -16,7 +16,7 @@ class TrainningEventController extends Controller
         return view( 'menu.register' , [ 'list' => $list ] );
     }
     
-    public function register( TrainningEventRegisterGetRequest $request ){
+    public function register( TrainningEventRegisterPostRequest $request ){
         $datum = $request->validated();
         
         $datum[ 'user_id' ] = Auth::id();
@@ -25,11 +25,11 @@ class TrainningEventController extends Controller
             $r = TrainningEventModel::create( $datum );
         } catch ( \Throwable $e ) {
             $request->session()->flash( 'front.trainning_event_register_failure' , true );
-            return redirect( '/trainning/record');
+            return redirect( route( 'result.record' ) );
         }
         
         $request->session()->flash( 'front.trainning_event_register_success' . true );
         
-        return redirect( '/trainning/record' );
+        return redirect( route( 'result.record' ) );
     }
 }

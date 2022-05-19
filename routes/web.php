@@ -18,18 +18,19 @@ use App\Http\Controllers\TrainningEventController;
 */
 
 Route::get( '/' , [ AuthController::class , 'index' ] )->name( 'front.index' );
-Route::post( '/login' , [ AuthController::class , 'login' ] );
+Route::post( '/login' , [ AuthController::class , 'login' ] )->name( 'front.login' );
 Route::middleware([ 'auth' ])->group( function () {
+    Route::get( '/logout' , [ AuthController::class , 'logout' ] )->name( 'front.logout' );
     Route::prefix( '/trainning' )->group( function () {
-        Route::get( '/record' , [ MenuController::class , 'record' ] );
-        Route::get( '/register/index' , [ TrainningEventController::class , 'index' ] );
-        Route::get( '/register' , [ TrainningEventController::class , 'register' ] );
+        Route::get( '/register/index' , [ TrainningEventController::class , 'index' ] )->name( 'trainning.register.index' );
+        Route::post( '/register' , [ TrainningEventController::class , 'register' ] )->name( 'trainning.register' );
     });
     Route::prefix( '/result' )->group( function () {
-       Route::get( '/register' , [ MenuController::class , 'register' ] );
-       Route::get( '/list' , [ MenuController::class , 'list' ] );
-       Route::get( '/edit/' , [ MenuController::class , 'edit' ] );
-       Route::get( '/edit/save' , [ MenuController::class. 'editSave' ] );
+        Route::get( '/record' , [ MenuController::class , 'record' ] )->name( 'result.record' );
+       Route::post( '/register' , [ MenuController::class , 'register' ] )->name( 'result.register' );
+       Route::get( '/list' , [ MenuController::class , 'list' ] )->name( 'result.list' );
+       Route::get( '/edit/' , [ MenuController::class , 'edit' ] )->name( 'result.edit' );
+       Route::post( '/edit/save' , [ MenuController::class. 'editSave' ] )->name( 'result.edit.save' );
     });
     Route::prefix( '/user' )->group( function () {
         Route::get( '/table_init_trainning_event' , [ UserController::class , 'exeInitTrainningEvent' ] );
@@ -37,6 +38,6 @@ Route::middleware([ 'auth' ])->group( function () {
 });
 
 Route::prefix( '/user' )->group( function() {
-   Route::get( '/index' , [ UserController::class , 'index' ] );
-   Route::post( '/register' , [ UserController::class , 'register' ] );
+   Route::get( '/index' , [ UserController::class , 'index' ] )->name( 'user.index' );
+   Route::post( '/register' , [ UserController::class , 'register' ] )->name( 'user.register' );
 });

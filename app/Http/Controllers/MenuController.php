@@ -6,7 +6,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\ResultRegisterGetRequest;
+use App\Http\Requests\ResultRegisterPostRequest;
 use App\Models\TrainningEvent as TrainningEventModel;
 use App\Models\Result as ResultModel;
 use App\Models\TrainningSet as TrainningSetModel;
@@ -28,7 +28,7 @@ class MenuController extends Controller
     }
     
     
-    public function register( ResultRegisterGetRequest $request ) {
+    public function register( ResultRegisterPostRequest $request ) {
         $datum = $request->validated();
         
         try{
@@ -52,12 +52,12 @@ class MenuController extends Controller
             $request->session()->flash( 'front.trainning_result_register_failure' , true );
             echo $e->getMessage();
             exit;
-            return redirect( '/trainning/record' );
+            return redirect( route( 'result.record' ) );
         }
         
         $request->session()->flash( 'front.trainning_result_register_success' , true );
         
-        return redirect( '/trainning/record' );
+        return redirect( route( 'result.record' ) );
     }
     
     

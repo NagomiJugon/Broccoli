@@ -28,7 +28,7 @@
     
     現在 {{ $list->currentPage() }} 目<br>
     @if ( $list->onFirstPage() === false )
-      <a href="/task/list">最初のページ</a>
+      <a href="{{ route( 'result.edit' ) }}">最初のページ</a>
     @else
       最初のページ
     @endif
@@ -47,7 +47,7 @@
     <br>
     <hr>
     
-    <button type="button" onclick="history.back()">戻る</button>
+    <a href="{{ route( 'result.list' ) }}" method="get">戻る</a>
     <a href="" method="get">編集</a>
     <a href="" method="get">削除</a>
     

@@ -18,7 +18,7 @@
     @if ( session( 'front.trainning_result_register_failure' ) == true )
         トレーニング実績の登録が失敗しました<br>
     @endif
-    <form action="/result/register" method="get">
+    <form action="{{ route( 'result.register' ) }}" method="post">
         @csrf
         <div class="toggle-test">
             <label for="toggle" class="label">トレーニング種目</label><br>
@@ -32,14 +32,16 @@
         </div>
         <br>
         @for ( $i = 1 ; $i < 6 ; $i++ )
-            <input type="number" min="0" name="weight{{ $i }}" value="{{ old( 'weight'.$i ) }}">kg / 
-            <input type="number" min="0" name="reps{{ $i }}" value="{{ old( 'reps'.$i ) }}">レップ
+            <input type="number" min="0" step="0.1" name="weight{{ $i }}" value="{{ old( 'weight'.$i ) }}">kg / 
+            <input type="number" min="0" step="0.1" name="reps{{ $i }}" value="{{ old( 'reps'.$i ) }}">レップ
             <br>
         @endfor
         <button>記録する</button>
         <br>
-        <a href="/trainning/register/index" method="get">新しい種目を追加する</a><br>
-        <a href="/result/list" method="get">トレーニング実績リスト</a><br>
-        <a href="/user/table_init_trainning_event" method="get">トレ種目 テーブル初期化</a>
+        <a href="{{ route( 'trainning.register.index' ) }}" method="get">新しい種目を追加する</a><br>
+        <a href="{{ route( 'result.list' ) }}" method="get">トレーニング実績リスト</a><br>
+        <a href="/user/table_init_trainning_event" method="get">トレ種目 テーブル初期化</a><br>
+        <hr>
+        <a href="{{ route( 'front.logout' ) }}" method="get">ログアウト</a>
     </form>
 @endsection( 'contents' )

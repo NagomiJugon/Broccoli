@@ -23,6 +23,6 @@ class AuthController extends Controller
         }
         
         $request->session()->regenerate();
-        return redirect()->intended( '/trainning/record' );
+        return redirect()->intended( route( 'result.record' ) );
     }
 }

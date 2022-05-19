@@ -15,12 +15,12 @@
         @endforeach
         </div>
     @endif
-    <form action="/login" method="post">
+    <form action="{{ route( 'front.login' ) }}" method="post">
         @csrf
         Email: <input name="email" value="{{ old( 'email' ) }}"><br>
         パスワード: <input name="password" type="password"><br>
         <button>ログインする</button>
         <br>
-        <a href="/user/index">会員登録</a>
+        <a href="{{ route( 'user.index' ) }}">会員登録</a>
     </form>
 @endsection( 'contents' )

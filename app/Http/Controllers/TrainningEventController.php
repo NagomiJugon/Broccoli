@@ -13,7 +13,7 @@ class TrainningEventController extends Controller
 {
     public function index() {
         $list = MuscleCategoryModel::get();
-        return view( 'menu.register' , [ 'list' => $list ] );
+        return view( 'trainning.register' , [ 'list' => $list ] );
     }
     
     public function register( TrainningEventRegisterPostRequest $request ){

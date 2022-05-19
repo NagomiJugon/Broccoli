@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\MenuController;
+use App\Http\Controllers\ResultController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TrainningEventController;
 
@@ -26,11 +26,11 @@ Route::middleware([ 'auth' ])->group( function () {
         Route::post( '/register' , [ TrainningEventController::class , 'register' ] )->name( 'trainning.register' );
     });
     Route::prefix( '/result' )->group( function () {
-        Route::get( '/record' , [ MenuController::class , 'record' ] )->name( 'result.record' );
-       Route::post( '/register' , [ MenuController::class , 'register' ] )->name( 'result.register' );
-       Route::get( '/list' , [ MenuController::class , 'list' ] )->name( 'result.list' );
-       Route::get( '/edit/' , [ MenuController::class , 'edit' ] )->name( 'result.edit' );
-       Route::post( '/edit/save' , [ MenuController::class. 'editSave' ] )->name( 'result.edit.save' );
+        Route::get( '/record' , [ ResultController::class , 'record' ] )->name( 'result.record' );
+        Route::post( '/register' , [ ResultController::class , 'register' ] )->name( 'result.register' );
+        Route::get( '/list' , [ ResultController::class , 'list' ] )->name( 'result.list' );
+        Route::get( '/edit/' , [ ResultController::class , 'edit' ] )->name( 'result.edit' );
+        Route::post( '/edit/save' , [ ResultController::class. 'editSave' ] )->name( 'result.edit.save' );
     });
     Route::prefix( '/user' )->group( function () {
         Route::get( '/table_init_trainning_event' , [ UserController::class , 'exeInitTrainningEvent' ] );

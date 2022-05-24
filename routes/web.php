@@ -29,8 +29,8 @@ Route::middleware([ 'auth' ])->group( function () {
         Route::get( '/record' , [ ResultController::class , 'record' ] )->name( 'result.record' );
         Route::post( '/register' , [ ResultController::class , 'register' ] )->name( 'result.register' );
         Route::get( '/list' , [ ResultController::class , 'list' ] )->name( 'result.list' );
-        Route::get( '/edit/' , [ ResultController::class , 'edit' ] )->name( 'result.edit' );
-        Route::post( '/edit/save' , [ ResultController::class. 'editSave' ] )->name( 'result.edit.save' );
+        Route::get( '/edit' , [ ResultController::class , 'edit' ] )->name( 'result.edit' );
+        Route::post( '/edit/save' , [ ResultController::class, 'editSave' ] )->name( 'result.edit.save' );
     });
     Route::prefix( '/user' )->group( function () {
         Route::get( '/table_init_trainning_event' , [ UserController::class , 'exeInitTrainningEvent' ] );

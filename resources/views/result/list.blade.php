@@ -2,6 +2,12 @@
 
 @section( 'contents' )
     <h1>トレーニング実績一覧</h1>
+    @if ( session( 'front.result_edit_save_seccess' ) == true )
+      実績の編集が完了しました<br>
+    @endif
+    @if ( session( 'front.result_edit_save_failure' ) == true )
+      実績の編集が失敗しました<br>
+    @endif
     <table border="1">
         <tr>
             <th>種目名</th>
@@ -41,7 +47,7 @@
     <hr>
     
     <a href="{{ route( 'result.record' ) }}" method="get">戻る</a>
-    <a href="" method="get">編集</a>
+    <a href="{{ route( 'result.edit' ) }}" method="get">編集</a>
     <a href="" method="get">削除</a>
     <br>
     <hr>

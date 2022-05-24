@@ -32,8 +32,8 @@
         </div>
         <br>
         @for ( $i = 1 ; $i < 6 ; $i++ )
-            <input type="number" min="0" step="0.1" name="weight{{ $i }}" value="{{ old( 'weight'.$i ) }}">kg / 
-            <input type="number" min="0" step="0.1" name="reps{{ $i }}" value="{{ old( 'reps'.$i ) }}">レップ
+            <input type="number" min="0" step="0.01" name="weight{{ $i }}" value="{{ old( 'weight'.$i ) }}">kg / 
+            <input type="number" min="0" name="reps{{ $i }}" value="{{ old( 'reps'.$i ) }}">レップ
             <br>
         @endfor
         <button>記録する</button>

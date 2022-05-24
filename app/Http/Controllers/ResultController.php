@@ -29,7 +29,6 @@ class ResultController extends Controller
     
     
     public function register( ResultRegisterPostRequest $request ) {
-        dd( $request->input() );
         $datum = $request->validated();
         
         try{
@@ -63,29 +62,26 @@ class ResultController extends Controller
     
     
     public function list() {
-        $per_page = 10;
-        $list = $this->getListBuilder()->paginate( $per_page );
+        $list = $this->getPaginateListBuilder();
         return view( 'result.list' , [ 'list' => $list ] );
     }
     
     
     public function edit() {
-        $per_page = 10;
         $list_trainning_event = TrainningEventModel::where( 'user_id' , Auth::id() )->get();
-        $list_result = $this->getListBuilder()->paginate( $per_page );
+        $list_result = $this->getPaginateListBuilder();
         return view( 'result.edit' , [ 'list_trainning_event' => $list_trainning_event , 'list_result' => $list_result ] );
     }
     
     
     public function editSave( Request $request ) {
         $data = $request->input();
-        //dd($data);
         try {
             foreach ( $data as $key => $value ) {
-                if ( preg_match( '/^trainning_set_id/' , $key ) !== 0 || false ) {
+                if ( preg_match( '/^trainning_set_id/' , $key ) !== 0 ) {
                     $id = $value;
                     $result = ResultModel::find( $data[ 'result'.$id ] );
-                    $result->trainning_event_id = $data[ 'trainning_event_id'.$id ];21
+                    $result->trainning_event_id = $data[ 'trainning_event_id'.$id ];
                     $result->save();
                     $trainning_set = TrainningSetModel::find( $data[ 'trainning_set_id'.$id ] );
                     $trainning_set->weight = $data[ 'weight'.$id ];
@@ -107,6 +103,36 @@ class ResultController extends Controller
     }
     
     
+    public function delete() {
+        $list = $this->getPaginateListBuilder();
+        return view( 'result.delete' , [ 'list' => $list ] );
+    }
+    
+    
+    public function deleteSave( Request $request ) {
+        $data = $request->input();
+        try {
+            // trainning_setsレコードが存在しないresultsレコードが発生しうるのでどこかのタイミングでcount=0のresultsレコードを削除する
+            foreach ( $data as $key => $value ) {
+                if ( preg_match( '/^trainning_set_id/' , $key ) !== 0 ) {
+                    $id = $value;
+                    $trainning_set = TrainningSetModel::find( $id );
+                    $trainning_set->delete();
+                }
+            }
+        } catch ( \Throwable $e ) {
+            echo $e->getMessage();
+            exit;
+            $request->session()->flash( 'front.result_delete_save_failure' , true );
+            return redirect( route( 'result.list' ) );
+        }
+        
+        $request->session()->flash( 'front.result_delete_save_seccess' , true );
+        
+        return redirect( route( 'result.list' ) );
+    }
+    
+    
     protected function getListBuilder() {
         return TrainningSetModel::leftJoin( 'results' , 'results.id' , '=' , 'trainning_sets.result_id' )
                                 ->Join( 'trainning_events' , 'results.trainning_event_id' , '=' , 'trainning_events.id' )
@@ -121,5 +147,11 @@ class ResultController extends Controller
                                 ->orderBy( 'trainning_sets.created_at' ,'DESC' )
                                 ->orderBy( 'trainning_events.muscle_category_id' )
                                 ->orderBy( 'trainning_sets.id' );
+    }
+    
+    
+    public function getPaginateListBuilder() {
+        $per_page = 10; // ユーザー設定で変更できるようにする or 日付ごとで分割
+        return $this->getListBuilder()->paginate( $per_page );
     }
 }

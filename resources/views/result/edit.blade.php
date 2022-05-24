@@ -1,7 +1,7 @@
 @extends( 'layout' )
 
 @section( 'contents' )
-    <h1>トレーニング実績一覧</h1>
+    <h1>トレーニング実績編集</h1>
     <table border="1">
         <tr>
             <th>種目名</th>
@@ -9,8 +9,8 @@
             <th>レップ数</th>
             <th>実施日</th>
         </tr>
-  <form action="{{ route( 'result.edit.save' ) }}" method="post">
-  @csrf
+    <form action="{{ route( 'result.edit.save' ) }}" method="post">
+    @csrf
         @foreach ( $list_result as $result )
         <tr>
           <input type="hidden" name="result{{ $result->trainning_set_id }}" value="{{ $result->result_id }}">

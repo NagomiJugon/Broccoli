@@ -12,6 +12,7 @@
         種目名: <input name="name" value="{{ old( 'name' ) }}"><br>
         クールタイム: <input type="number" min="0" name="cooltime" value="0"> 日<br>
         <button>登録する</button>
+        <br>
         <a href="{{ route( 'result.record' ) }}" method="get">戻る</a>
     </form>
     <br>

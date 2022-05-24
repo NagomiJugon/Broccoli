@@ -1,7 +1,7 @@
 @extends( 'layout' )
 
 @section( 'contents-css' )
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('css/menu/record.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('css/result/record.css') }}">
 @endsection( 'contents-css' )
 
 @section( 'contents' )
@@ -22,7 +22,7 @@
         @csrf
         <div class="toggle-test">
             <label for="toggle" class="label">トレーニング種目</label><br>
-            <input type="checkbox" id="toggle">
+            <input type="radio" id="toggle">
                 <select name="trainning_event_id">
                     @foreach ( $list as $trainning_event )
                     <option value="{{ $trainning_event->id }}">{{ $trainning_event->name }}</option>

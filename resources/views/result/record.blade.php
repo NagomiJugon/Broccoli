@@ -20,17 +20,33 @@
     @endif
     <form action="{{ route( 'result.register' ) }}" method="post">
         @csrf
+        
         <div class="toggle-test">
-            <label for="toggle" class="label">トレーニング種目</label><br>
-            <input type="radio" id="toggle">
+            <label for="toggle_all" class="label">全種目</label>
+            @foreach ( $list as $list_category )
+            <label for="toggle{{ current( $list_category )[0]->trainning_event_id }}" class="label">
+                {{ current( $list_category )[0]->muscle_categories_name }}
+            </label>
+            @endforeach
+            <input type="radio" name="trainning_event" id="toggle_all" checked>
                 <select name="trainning_event_id">
-                    @foreach ( $list as $trainning_event )
+                    @foreach ( $list_all as $trainning_event )
                     <option value="{{ $trainning_event->id }}">{{ $trainning_event->name }}</option>
                     @endforeach
                 </select>
             </input>
+            @foreach ( $list as $list_category )
+            <input type="radio" name="trainning_event" id="toggle{{ current( $list_category )[0]->trainning_event_id }}">
+                <select name="trainning_event_id">
+                    @foreach ( $list_category as $category )
+                    <option value="{{ $category->trainning_event_id }}">{{ $category->trainning_event_name }}</option>
+                    @endforeach
+                </select>
+            </input>
+            @endforeach
         </div>
         <br>
+        
         @for ( $i = 1 ; $i < 6 ; $i++ )
             <input type="number" min="0" step="0.01" name="weight{{ $i }}" value="{{ old( 'weight'.$i ) }}">kg / 
             <input type="number" min="0" name="reps{{ $i }}" value="{{ old( 'reps'.$i ) }}">レップ

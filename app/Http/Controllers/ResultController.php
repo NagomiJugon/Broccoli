@@ -10,21 +10,17 @@ use App\Http\Requests\ResultRegisterPostRequest;
 use App\Models\TrainningEvent as TrainningEventModel;
 use App\Models\Result as ResultModel;
 use App\Models\TrainningSet as TrainningSetModel;
+use App\Models\MuscleCategory as MuscleCategoryModel;
 
 class ResultController extends Controller
 {
     public function record() {
-        $list = TrainningEventModel::where( 'user_id' , Auth::id() )->get();
-        /*
-        $list[ 'list_all' ] = TrainningEventModel::where( 'user_id' , Auth::id() )->get();
-        for ( $i = 1 ; $i <= TrainningEventModel::count() ; $i++ ) {
-            $list[ 'list_id_'.$i ]  = TrainningEventModel::where([
-                                                            [ 'user_id' , '=' , Auth::id() ],
-                                                            [ 'muscle_category_id' , '=' , $i ],
-                                                            ])
-                                                            ->get();
-        }*/
-        return view( 'result.record' , [ 'list' => $list ] );
+        $list_all = TrainningEventModel::where( 'user_id' , Auth::id() )->get();
+        
+        foreach( MuscleCategoryModel::all() as $category ) {
+            $list[ 'list_id_'.$category->id ] = $this->getMuscleCategoryListBuilder( $category->id )->get();
+        }
+        return view( 'result.record' , [ 'list' => $list , 'list_all' => $list_all ] );
     }
     
     
@@ -62,8 +58,15 @@ class ResultController extends Controller
     
     
     public function list() {
-        $list = $this->getPaginateListBuilder();
-        return view( 'result.list' , [ 'list' => $list ] );
+        $list_all = $this->getPaginateListBuilder();
+        
+        foreach( MuscleCategoryModel::all() as $category ) {
+            $list[ 'list_id_'.$category->id ] = $this->getPaginateCategorizedListBuilder( $category->id );
+        }
+        
+        $muscle_categories = MuscleCategoryModel::all();
+        
+        return view( 'result.list' , [ 'list' => $list , 'list_all' => $list_all , 'muscle_categories' => $muscle_categories ] );
     }
     
     
@@ -134,16 +137,41 @@ class ResultController extends Controller
     
     
     protected function getListBuilder() {
+        $select_list = [
+            'results.id as result_id',
+            'trainning_events.id as trainning_event_id',
+            'trainning_events.name as trainning_events_name',
+            'trainning_sets.id as trainning_set_id',
+            'trainning_sets.created_at as trainning_set_datetime',
+            'trainning_sets.weight as trainning_weight',
+            'trainning_sets.reps as trainning_reps',
+        ];
         return TrainningSetModel::leftJoin( 'results' , 'results.id' , '=' , 'trainning_sets.result_id' )
                                 ->Join( 'trainning_events' , 'results.trainning_event_id' , '=' , 'trainning_events.id' )
-                                ->selectRaw( 'results.id as result_id' )
-                                ->selectRaw( 'trainning_events.id as trainning_event_id' )
-                                ->selectRaw( 'trainning_events.name as trainning_events_name' )
-                                ->selectRaw( 'trainning_sets.id as trainning_set_id' )
-                                ->selectRaw( 'trainning_sets.created_at as trainning_set_datetime' )
-                                ->selectRaw( 'trainning_sets.weight as trainning_weight' )
-                                ->selectRaw( 'trainning_sets.reps as trainning_reps' )
+                                ->select( $select_list )
                                 ->where( 'results.user_id' , Auth::id() )
+                                ->orderBy( 'trainning_sets.created_at' ,'DESC' )
+                                ->orderBy( 'trainning_events.muscle_category_id' )
+                                ->orderBy( 'trainning_sets.id' );
+    }
+    
+    
+    protected function getCategorizedListBuilder( $muscle_category_id ) {
+        $select_list = [
+            'results.id as result_id',
+            'trainning_events.id as trainning_event_id',
+            'trainning_events.name as trainning_events_name',
+            'trainning_events.muscle_category_id',
+            'trainning_sets.id as trainning_set_id',
+            'trainning_sets.created_at as trainning_set_datetime',
+            'trainning_sets.weight as trainning_weight',
+            'trainning_sets.reps as trainning_reps',
+        ];
+        return TrainningSetModel::leftJoin( 'results' , 'results.id' , '=' , 'trainning_sets.result_id' )
+                                ->Join( 'trainning_events' , 'results.trainning_event_id' , '=' , 'trainning_events.id' )
+                                ->select( $select_list )
+                                ->where( 'results.user_id' , Auth::id() )
+                                ->where( 'trainning_events.muscle_category_id' , $muscle_category_id )
                                 ->orderBy( 'trainning_sets.created_at' ,'DESC' )
                                 ->orderBy( 'trainning_events.muscle_category_id' )
                                 ->orderBy( 'trainning_sets.id' );
@@ -153,5 +181,24 @@ class ResultController extends Controller
     public function getPaginateListBuilder() {
         $per_page = 10; // ユーザー設定で変更できるようにする or 日付ごとで分割
         return $this->getListBuilder()->paginate( $per_page );
+    }
+    
+    
+    public function getPaginateCategorizedListBuilder( $muscle_category_id ) {
+        $per_page = 10;
+        return $this->getCategorizedListBuilder( $muscle_category_id )->paginate( $per_page );
+    }
+    
+    
+    public function getMuscleCategoryListBuilder( $muscle_category_id ) {
+        $select_list = [
+            'trainning_events.id as trainning_event_id',
+            'trainning_events.name as trainning_event_name',
+            'muscle_categories.name as muscle_categories_name',
+        ];
+        return TrainningEventModel::leftJoin( 'muscle_categories' , 'muscle_categories.id' , '=' , 'trainning_events.muscle_category_id' )
+                                  ->select( $select_list )
+                                  ->where( 'user_id' , Auth::id() )
+                                  ->where( 'muscle_category_id' , $muscle_category_id );
     }
 }

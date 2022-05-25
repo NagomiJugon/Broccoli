@@ -15,10 +15,10 @@
     display: none;
 }
 
-.toggle-test input + select {
+.toggle-test input + div {
     display: none;
 }
 
-.toggle-test input:checked + select {
+.toggle-test input:checked + div {
     display: block;
 }

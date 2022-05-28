@@ -1,0 +1,24 @@
+@charset "utf-8";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.toggle-test label {
+    color: red;
+    cursor: pointer;
+}
+
+.toggle-test .invisible {
+    display: none;
+}
+
+.toggle-test input + div {
+    display: none;
+}
+
+.toggle-test input:checked + div {
+    display: block;
+}

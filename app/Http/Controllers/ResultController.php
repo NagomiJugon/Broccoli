@@ -70,12 +70,33 @@ class ResultController extends Controller
     }
     
     
-    public function edit() {
+    public function edit( Request $request ) {
+        $d = $request->input();
+        $muscle_category_id = $d[ 'muscle_category_id' ];
+        
+        $list_trainning_event = TrainningEventModel::where( 'user_id' , Auth::id() )->get();
+        
+        $list_all = $this->getPaginateListBuilder();
+        
+        foreach( MuscleCategoryModel::all() as $category ) {
+            $list[ 'list_id_'.$category->id ] = $this->getPaginateCategorizedListBuilder( $category->id );
+        }
+        
+        $muscle_categories = MuscleCategoryModel::all();
+        
+        return view( 'result.edit2' , [ 'list' => $list , 
+                                        'list_all' => $list_all ,
+                                        'list_trainning_event' => $list_trainning_event ,
+                                        'muscle_categories' => $muscle_categories ,
+                                        'muscle_category_id' => $muscle_category_id ] );
+    }
+    /*
+    public function edit) {
         $list_trainning_event = TrainningEventModel::where( 'user_id' , Auth::id() )->get();
         $list_result = $this->getPaginateListBuilder();
         return view( 'result.edit' , [ 'list_trainning_event' => $list_trainning_event , 'list_result' => $list_result ] );
     }
-    
+    */
     
     public function editSave( Request $request ) {
         $data = $request->input();

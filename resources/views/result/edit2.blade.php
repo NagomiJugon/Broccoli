@@ -1,7 +1,7 @@
 @extends( 'layout' )
 
 @section( 'contents-css' )
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('css/result/list.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('css/result/edit.css') }}">
 @endsection( 'contents-css' )
 
 @section( 'contents' )
@@ -31,10 +31,8 @@
       @endforeach
       <br>
       
-      <form action="{{ route( 'result.edit' ) }}" method="get">
-      
       {{-- 全部位の実績一覧 ここから --}}
-      <input type="radio" name="muscle_category_id" id="toggle_all" value="0" checked>
+      <input type="radio" class="invisible" name="muscle_category_id" id="toggle_all" value="0" checked>
         <div class="switch-wrapper">
           <table border="1">
               <tr>
@@ -43,19 +41,29 @@
                   <th>レップ数</th>
                   <th>実施日</th>
               </tr>
+          <form action="{{ route( 'result.edit.save' ) }}" method="get">
+          @csrf
               @foreach ( $list_all as $set )
               <tr>
-                  <td>{{ $set->trainning_events_name }}</td>
-                  <td>{{ $set->trainning_weight }}  kg</td>
-                  <td>{{ $set->trainning_reps }}</td>
-                  <td>{{ $set->trainning_set_datetime }}</td>
+                <input type="hidden" name="result{{ $set->trainning_set_id }}" value="{{ $set->result_id }}">
+                <input type="hidden" name="trainning_set_id{{ $set->trainning_set_id }}" value="{{ $set->trainning_set_id }}">
+                <td>
+                  <select name="trainning_event_id{{ $set->trainning_set_id }}">
+                    @foreach ( $list_trainning_event as $trainning_event )
+                    <option value="{{ $trainning_event->id }}" @if ( $trainning_event->id === $set->trainning_event_id ) selected @endif>{{ $trainning_event->name }}</option>
+                    @endforeach
+                  </select>
+                </td>
+                <td><input type="number" min="0" step="0.01" name="weight{{ $set->trainning_set_id }}" value="{{ $set->trainning_weight }}"> kg</td>
+                <td><input type="number" min="0" name="reps{{ $set->trainning_set_id }}" value="{{ $set->trainning_reps }}"></td>
+                <td><input type="datetime-local" name="timestamp{{ $set->trainning_set_id }}" value="{{ str_replace( " " , "T" , $set->trainning_set_datetime ) }}"></td>
               </tr>
               @endforeach
           </table>
         
           現在 {{ $list_all->currentPage() }} 目<br>
           @if ( $list_all->onFirstPage() === false )
-            <a href="{{ route( 'result.list' ) }}">最初のページ</a>
+            <a href="{{ route( 'result.edit' ) }}">最初のページ</a>
           @else
             最初のページ
           @endif
@@ -71,6 +79,9 @@
           @else
             次に進む
           @endif
+          <br>
+          <button>保存する</button>
+          </form>
         </div>
       </input>
       {{-- 全部位の実績一覧 ここまで --}}
@@ -78,7 +89,7 @@
       {{-- 各部位の実績一覧 ここから --}}
       @foreach ( $list as $list_category )
       @if ( count( $list_category ) !== 0 )
-      <input type="radio" name="muscle_category_id" id="toggle{{ $list_category[0]->muscle_category_id }}" value="{{ $list_category[0]->muscle_category_id }}">
+      <input type="radio" class="invisible" name="muscle_category_id" id="toggle{{ $list_category[0]->muscle_category_id }}" value="{{ $list_category[0]->muscle_category_id }}">
         <div class="switch-wrapper">
           <table border="1">
             <tr>
@@ -89,17 +100,25 @@
             </tr>
             @foreach ( $list_category as $set )
             <tr>
-                <td>{{ $set->trainning_events_name }}</td>
-                <td>{{ $set->trainning_weight }}  kg</td>
-                <td>{{ $set->trainning_reps }}</td>
-                <td>{{ $set->trainning_set_datetime }}</td>
+              <input type="hidden" name="result{{ $set->trainning_set_id }}" value="{{ $set->result_id }}">
+              <input type="hidden" name="trainning_set_id{{ $set->trainning_set_id }}" value="{{ $set->trainning_set_id }}">
+              <td>
+                <select name="trainning_event_id{{ $set->trainning_set_id }}">
+                  @foreach ( $list_trainning_event as $trainning_event )
+                  <option value="{{ $trainning_event->id }}" @if ( $trainning_event->id === $set->trainning_event_id ) selected @endif>{{ $trainning_event->name }}</option>
+                  @endforeach
+                </select>
+              </td>
+              <td><input type="number" min="0" step="0.01" name="weight{{ $set->trainning_set_id }}" value="{{ $set->trainning_weight }}"> kg</td>
+              <td><input type="number" min="0" name="reps{{ $set->trainning_set_id }}" value="{{ $set->trainning_reps }}"></td>
+              <td><input type="datetime-local" name="timestamp{{ $set->trainning_set_id }}" value="{{ str_replace( " " , "T" , $set->trainning_set_datetime ) }}"></td>
             </tr>
             @endforeach
           </table>
           
           現在 {{ $list_category->currentPage() }} 目<br>
           @if ( $list_category->onFirstPage() === false )
-            <a href="{{ route( 'result.list' ) }}">最初のページ</a>
+            <a href="{{ route( 'result.edit' ) }}">最初のページ</a>
           @else
             最初のページ
           @endif
@@ -115,6 +134,9 @@
           @else
             次に進む
           @endif
+          <br>
+          <button>保存する</button>
+          </form>
         </div>
         @endif
         @endforeach
@@ -123,15 +145,7 @@
     </div>
     <hr>
     
-    <input type="submit" value="編集">
-    <input type="submit" formaction="{{ route( 'result.delete' ) }}" value="削除">
-    </form>
-    
     <a href="{{ route( 'result.record' ) }}" method="get">戻る</a>
-    {{--
-    <a href="{{ route( 'result.edit' ) }}" method="get">編集</a>
-    <a href="{{ route( 'result.delete' ) }}" method="get">削除</a>
-    --}}
     <br>
     <hr>
     <a href="{{ route( 'front.logout' ) }}" method="get">ログアウト</a>

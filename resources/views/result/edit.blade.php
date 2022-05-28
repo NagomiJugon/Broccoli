@@ -24,7 +24,6 @@
           </td>
           <td><input type="number" min="0" step="0.01" name="weight{{ $result->trainning_set_id }}" value="{{ $result->trainning_weight }}"> kg</td>
           <td><input type="number" min="0" name="reps{{ $result->trainning_set_id }}" value="{{ $result->trainning_reps }}"></td>
-          {{-- <td>{{ $result->trainning_set_datetime }}</td> --}}
           <td><input type="datetime-local" name="timestamp{{ $result->trainning_set_id }}" value="{{ str_replace( " " , "T" , $result->trainning_set_datetime ) }}"></td>
         </tr>
         @endforeach

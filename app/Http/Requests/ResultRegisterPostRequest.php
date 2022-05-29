@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\MuscleCategory as MuscleCategoryModel;
 
 class ResultRegisterPostRequest extends FormRequest
 {
@@ -14,8 +15,8 @@ class ResultRegisterPostRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'trainning_event_id' => [ 'required' ],
+        $list = array(
+            'selected_category' => [ 'nullable' ],
             
             'weight1' => [ 'nullable' ],
             'reps1' => [ 'required' ],
@@ -31,6 +32,15 @@ class ResultRegisterPostRequest extends FormRequest
             
             'weight5' => [ 'nullable' ],
             'reps5' => [ 'required_with:weight5' ],
+        );
+        
+        foreach( MuscleCategoryModel::all() as $category ) {
+            $list[ 'trainning_event_id0' ] = [ 'required' ];
+            $list[ 'trainning_event_id'.$category->id ] = [ 'required' ];
+        }
+        
+        return [
+            $list
         ];
     }
 }

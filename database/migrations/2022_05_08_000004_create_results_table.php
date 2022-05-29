@@ -17,6 +17,9 @@ class CreateResultsTable extends Migration
             $table->id();
             $table->unsignedBigInteger( 'user_id' );
             $table->unsignedBigInteger( 'trainning_event_id' );
+            $table->datetime( 'timestamp' )->useCurrent();
+            $table->float( 'weight' );
+            $table->unsignedTinyInteger( 'reps' );
             $table->datetime( 'created_at' )->useCurrent();
             $table->datetime( 'updated_at' )->useCurrent()->userCurrentOnUpdate();
             $table->foreign( 'user_id' )->references( 'id' )->on( 'users' );

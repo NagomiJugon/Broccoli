@@ -9,14 +9,8 @@
     @if ( session( 'front.result_edit_save_seccess' ) == true )
       実績の編集が完了しました<br>
     @endif
-    @if ( session( 'front.result_edit_save_failure' ) == true )
-      実績の編集が失敗しました<br>
-    @endif
     @if ( session( 'front.result_delete_save_seccess' ) == true )
       実績の削除が完了しました<br>
-    @endif
-    @if ( session( 'front.result_delete_save_failure' ) == true )
-      実績の削除が失敗しました<br>
     @endif
     
     <div class="toggle-test">
@@ -48,7 +42,7 @@
                   <td>{{ $set->trainning_events_name }}</td>
                   <td>{{ $set->trainning_weight }}  kg</td>
                   <td>{{ $set->trainning_reps }}</td>
-                  <td>{{ $set->trainning_set_datetime }}</td>
+                  <td>{{ $set->trainning_timestamp }}</td>
               </tr>
               @endforeach
           </table>
@@ -92,7 +86,7 @@
                 <td>{{ $set->trainning_events_name }}</td>
                 <td>{{ $set->trainning_weight }}  kg</td>
                 <td>{{ $set->trainning_reps }}</td>
-                <td>{{ $set->trainning_set_datetime }}</td>
+                <td>{{ $set->trainning_timestamp }}</td>
             </tr>
             @endforeach
           </table>

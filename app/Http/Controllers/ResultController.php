@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ResultRegisterPostRequest;
 use App\Models\TrainningEvent as TrainningEventModel;
 use App\Models\Result as ResultModel;
-use App\Models\TrainningSet as TrainningSetModel;
 use App\Models\MuscleCategory as MuscleCategoryModel;
 
 class ResultController extends Controller
@@ -183,7 +182,7 @@ class ResultController extends Controller
             'results.id as result_id',
             'results.trainning_event_id as trainning_event_id',
             'results.timestamp as trainning_timestamp',
-            'trainning_events.name as trainning_events_name',
+            'trainning_events.name as trainning_event_name',
             'results.weight as trainning_weight',
             'results.reps as trainning_reps',
         ];
@@ -200,7 +199,7 @@ class ResultController extends Controller
         $select_list = [
             'results.id as result_id',
             'results.trainning_event_id as trainning_event_id',
-            'trainning_events.name as trainning_events_name',
+            'trainning_events.name as trainning_event_name',
             'trainning_events.muscle_category_id',
             'results.timestamp as trainning_timestamp',
             'results.weight as trainning_weight',

@@ -1,22 +1,20 @@
 @extends( 'layout' )
 
 @section( 'contents-css' )
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('css/result/edit.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('css/result/list.css') }}">
 @endsection( 'contents-css' )
 
 @section( 'contents' )
-    <h1>トレーニング実績 削除画面</h1>
-    @if ( session( 'front.result_delete_save_null' ) == true )
-      削除するデータが選択されていません<br>
-    @endif
-    @if ( session( 'front.result_delete_save_failure' ) == true )
-      実績の削除が失敗しました<br>
-    @endif
+    <h1>トレーニング種目一覧</h1>
     
     <div class="toggle-test">
-    
+      
+      {{-- 筋肉部位ごとのトレーニングメニュー表示ボタンを作成するLABEL --}}
+      {{-- 全部位用ボタン --}}
       <label for="toggle_all" class="label">全種目</label>
+      {{-- 各部位用ボタン --}}
       @foreach ( $muscle_categories as $category )
+      {{-- トレーニング種目が登録されていない部位はボタンを表示しない --}}
       @if ( count( $list[ 'list_id_'.$category->id ] ) !== 0 )
       <label for="toggle{{ $category->id }}" class="label">
         {{ $category->name }}
@@ -25,35 +23,29 @@
       @endforeach
       <br>
       
+      <form action="" method="get">
+      
       {{-- 全部位の実績一覧 ここから --}}
-      <form action="{{ route( 'result.delete.save' ) }}" method="post">
-      @csrf
-      <input type="radio" class="invisible" name="muscle_category_id" id="toggle_all" value="0" @if( $muscle_category_id == 0 ) checked @endif>
-        {{-- 非表示範囲はここから --}}
+      <input type="radio" name="muscle_category_id" id="toggle_all" value="0" checked>
         <div class="switch-wrapper">
           <table border="1">
               <tr>
-                <th>削除対象</th>
-                <th>種目名</th>
-                <th>負荷重量</th>
-                <th>レップ数</th>
-                <th>実施日</th>
+                <th>部位</th>
+                <th>トレーニング種目名</th>
+                <th>クールタイム</th>
               </tr>
-          
               @foreach ( $list_all as $set )
               <tr>
-                <td><input type="checkbox" name="result{{ $set->result_id }}" value="{{ $set->result_id }}"></td>
+                <td>{{ $set->muscle_category_name }}</td>
                 <td>{{ $set->trainning_event_name }}</td>
-                <td>{{ $set->trainning_weight }}  kg</td>
-                <td>{{ $set->trainning_reps }}</td>
-                <td>{{ $set->trainning_timestamp }}</td>
+                <td>{{ $set->cooltime }}  日</td>
               </tr>
               @endforeach
           </table>
         
           現在 {{ $list_all->currentPage() }} 目<br>
           @if ( $list_all->onFirstPage() === false )
-            <a href="{{ route( 'result.delete' ) }}">最初のページ</a>
+            <a href="{{ route( 'trainning.list' ) }}">最初のページ</a>
           @else
             最初のページ
           @endif
@@ -69,44 +61,33 @@
           @else
             次に進む
           @endif
-          <br>
-          <button onclick='return confirm( "選択された実績を削除します。\nこの操作は戻せません。\n削除してよろしいですか？" )'>削除する</button>
         </div>
-      </form>
-        {{-- 非表示範囲はここまで --}}
       </input>
       {{-- 全部位の実績一覧 ここまで --}}
       
       {{-- 各部位の実績一覧 ここから --}}
-      <form action="{{ route( 'result.delete.save' ) }}" method="post">
-      @csrf
       @foreach ( $list as $list_category )
       @if ( count( $list_category ) !== 0 )
-      <input type="radio" class="invisible" name="muscle_category_id" id="toggle{{ $list_category[0]->muscle_category_id }}" value="{{ $list_category[0]->muscle_category_id }}" @if( $list_category[0]->muscle_category_id == $muscle_category_id ) checked @endif>
-        {{-- 非表示範囲はここから --}}
+      <input type="radio" name="muscle_category_id" id="toggle{{ $list_category[0]->muscle_category_id }}" value="{{ $list_category[0]->muscle_category_id }}">
         <div class="switch-wrapper">
           <table border="1">
             <tr>
-              <th>削除対象</th>
-              <th>種目名</th>
-              <th>負荷重量</th>
-              <th>レップ数</th>
-              <th>実施日</th>
+              <th>部位</th>
+              <th>トレーニング種目名</th>
+              <th>クールタイム</th>
             </tr>
             @foreach ( $list_category as $set )
             <tr>
-              <td><input type="checkbox" name="result{{ $set->result_id }}" value="{{ $set->result_id }}"></td>
+              <td>{{ $set->muscle_category_name }}</td>
               <td>{{ $set->trainning_event_name }}</td>
-              <td>{{ $set->trainning_weight }}  kg</td>
-              <td>{{ $set->trainning_reps }}</td>
-              <td>{{ $set->trainning_timestamp }}</td>
+              <td>{{ $set->cooltime }}  日</td>
             </tr>
             @endforeach
           </table>
           
           現在 {{ $list_category->currentPage() }} 目<br>
           @if ( $list_category->onFirstPage() === false )
-            <a href="{{ route( 'result.delete' ) }}">最初のページ</a>
+            <a href="{{ route( 'trainning.list' ) }}">最初のページ</a>
           @else
             最初のページ
           @endif
@@ -122,21 +103,19 @@
           @else
             次に進む
           @endif
-          <br>
-          <button onclick='return confirm( "選択された実績を削除します。\nこの操作は戻せません。\n削除してよろしいですか？" )'>削除する</button>
-          </form>
         </div>
-        {{-- 非表示範囲はここまで --}}
         @endif
         @endforeach
       </input>
-    </form>
       {{-- 各部位の実績一覧 ここまで --}}
     </div>
-    
     <hr>
     
-    <a href="{{ route( 'result.list' ) }}" method="get">戻る</a>
+    <input type="submit" value="編集">
+    <input type="submit" formaction="" value="削除">
+    </form>
+    
+    <a href="{{ route( 'result.record' ) }}" method="get">戻る</a>
     {{--
     <a href="{{ route( 'result.edit' ) }}" method="get">編集</a>
     <a href="{{ route( 'result.delete' ) }}" method="get">削除</a>

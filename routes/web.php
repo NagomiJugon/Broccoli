@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ResultController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TrainningEventController;
+use App\Http\Controllers\PresetMenuController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,7 @@ Route::middleware([ 'auth' ])->group( function () {
     Route::prefix( '/trainning' )->group( function () {
         Route::get( '/register/index' , [ TrainningEventController::class , 'index' ] )->name( 'trainning.register.index' );
         Route::post( '/register' , [ TrainningEventController::class , 'register' ] )->name( 'trainning.register' );
+        Route::get( '/list' , [ TrainningEventController::class , 'list' ] )->name( 'trainning.list' );
     });
     Route::prefix( '/result' )->group( function () {
         Route::get( '/record' , [ ResultController::class , 'record' ] )->name( 'result.record' );
@@ -33,6 +35,10 @@ Route::middleware([ 'auth' ])->group( function () {
         Route::post( '/edit/save' , [ ResultController::class, 'editSave' ] )->name( 'result.edit.save' );
         Route::get( '/delete' , [ ResultController::class , 'delete' ] )->name( 'result.delete' );
         Route::post( '/delete/save' , [ ResultController::class , 'deleteSave' ] )->name( 'result.delete.save' );
+    });
+    Route::prefix( '/preset_menu' )->group( function () {
+        Route::get( '/register' ,[ PresetMenuController::class , 'register' ] )->name( 'preset_menu.register' );
+        Route::post( '/register/save' , [ PresetMenuController::class , 'registerSave' ] )->name( 'preset_menu.register.save' );
     });
     Route::prefix( '/user' )->group( function () {
         Route::get( '/table_init_trainning_event' , [ UserController::class , 'exeInitTrainningEvent' ] );

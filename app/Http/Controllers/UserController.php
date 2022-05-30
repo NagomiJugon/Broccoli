@@ -35,7 +35,7 @@ class UserController extends Controller
     }
     
     public function exeInitTrainningEvent() {
-      $this->initTrainningEventsTable( 5 );
+      $this->initTrainningEventsTable( Auth::id() );
       return view( 'index' );
     }
     

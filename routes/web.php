@@ -23,9 +23,13 @@ Route::post( '/login' , [ AuthController::class , 'login' ] )->name( 'front.logi
 Route::middleware([ 'auth' ])->group( function () {
     Route::get( '/logout' , [ AuthController::class , 'logout' ] )->name( 'front.logout' );
     Route::prefix( '/trainning' )->group( function () {
-        Route::get( '/register/index' , [ TrainningEventController::class , 'index' ] )->name( 'trainning.register.index' );
-        Route::post( '/register' , [ TrainningEventController::class , 'register' ] )->name( 'trainning.register' );
+        Route::get( '/register' , [ TrainningEventController::class , 'register' ] )->name( 'trainning.register' );
+        Route::post( '/register/save' , [ TrainningEventController::class , 'registerSave' ] )->name( 'trainning.register.save' );
         Route::get( '/list' , [ TrainningEventController::class , 'list' ] )->name( 'trainning.list' );
+        Route::get( '/edit' , [ TrainningEventController::class , 'edit' ] )->name( 'trainning.edit' );
+        Route::post( '/edit/save' , [ TrainningEventController::class , 'editSave' ] )->name( 'trainning.edit.save' );
+        Route::get( '/delete' , [ TrainningEventController::class , 'delete' ] )->name( 'trainning.delete' );
+        Route::post( '/delete/save' , [ TrainningEventController::class , 'deleteSave' ] )->name( 'trainning.delete.save' );
     });
     Route::prefix( '/result' )->group( function () {
         Route::get( '/record' , [ ResultController::class , 'record' ] )->name( 'result.record' );

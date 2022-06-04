@@ -5,18 +5,22 @@
 @endsection( 'contents-css' )
 
 @section( 'contents' )
-    <h1>トレーニング実績 削除画面</h1>
-    @if ( session( 'front.result_delete_save_null' ) == true )
-      削除するデータが選択されていません<br>
+    <h1>トレーニング種目 削除</h1>
+    @if ( session( 'front.trainning_event_delete_save_failure' ) == true )
+      トレーニング種目の削除に失敗しました<br>
     @endif
-    @if ( session( 'front.result_delete_save_failure' ) == true )
-      実績の削除が失敗しました<br>
+    @if ( session( 'front.trainning_event_delete_save_null' ) == true )
+      削除するデータが選択されていません<br>
     @endif
     
     <div class="toggle-test">
-    
+      
+      {{-- 筋肉部位ごとのトレーニングメニュー表示ボタンを作成するLABEL --}}
+      {{-- 全部位用ボタン --}}
       <label for="toggle_all" class="label">全種目</label>
+      {{-- 各部位用ボタン --}}
       @foreach ( $muscle_categories as $category )
+      {{-- トレーニング種目が登録されていない部位はボタンを表示しない --}}
       @if ( count( $list[ 'list_id_'.$category->id ] ) !== 0 )
       <label for="toggle{{ $category->id }}" class="label">
         {{ $category->name }}
@@ -26,34 +30,32 @@
       <br>
       
       {{-- 全部位の実績一覧 ここから --}}
-      <input type="radio" class="invisible" name="muscle_category_id" id="toggle_all" value="0" @if( $muscle_category_id == 0 ) checked @endif>
-        {{-- 非表示範囲はここから --}}
+      <input type="radio" name="muscle_category_id" class="invisible" id="toggle_all" value="0" @if( $muscle_category_id == 0 )checked @endif>
+        {{-- 非表示範囲　ここから --}}
         <div class="switch-wrapper">
           <table border="1">
               <tr>
                 <th>削除対象</th>
-                <th>種目名</th>
-                <th>負荷重量</th>
-                <th>レップ数</th>
-                <th>実施日</th>
+                <th>部位</th>
+                <th>トレーニング種目名</th>
+                <th>クールタイム</th>
               </tr>
               {{-- 削除対象フォーム　ここから --}}
-              <form action="{{ route( 'result.delete.save' ) }}" method="post">
+              <form action="{{ route( 'trainning.delete.save' ) }}" method="post">
               @csrf
-              @foreach ( $list_all as $set )
+              @foreach ( $list_all as $event )
               <tr>
-                <td><input type="checkbox" name="result{{ $set->result_id }}" value="{{ $set->result_id }}"></td>
-                <td>{{ $set->trainning_event_name }}</td>
-                <td>{{ $set->trainning_weight }}  kg</td>
-                <td>{{ $set->trainning_reps }}</td>
-                <td>{{ $set->trainning_timestamp }}</td>
+                <td><input type="checkbox" name="trainning_event_id{{ $event->trainning_event_id }}" value="{{ $event->trainning_event_id }}"></td>
+                <td>{{ $event->muscle_category_name }}</td>
+                <td>{{ $event->trainning_event_name }}</td>
+                <td>{{ $event->cooltime }}  日</td>
               </tr>
               @endforeach
           </table>
         
           現在 {{ $list_all->currentPage() }} 目<br>
           @if ( $list_all->onFirstPage() === false )
-            <a href="{{ route( 'result.delete' ) }}">最初のページ</a>
+            <a href="{{ route( 'trainning.list' ) }}">最初のページ</a>
           @else
             最初のページ
           @endif
@@ -72,43 +74,41 @@
           <br>
           <button onclick='return confirm( "選択された実績を削除します。\nこの操作は戻せません。\n削除してよろしいですか？" )'>削除する</button>
           </form>
-          {{-- 削除対象フォーム　ここまで --}}
+          {{-- 削除対象フォーム　ここまで--}}
         </div>
-        {{-- 非表示範囲はここまで --}}
+        {{-- 非表示範囲　ここまで --}}
       </input>
       {{-- 全部位の実績一覧 ここまで --}}
       
       {{-- 各部位の実績一覧 ここから --}}
       @foreach ( $list as $list_category )
       @if ( count( $list_category ) !== 0 )
-      <input type="radio" class="invisible" name="muscle_category_id" id="toggle{{ $list_category[0]->muscle_category_id }}" value="{{ $list_category[0]->muscle_category_id }}" @if( $list_category[0]->muscle_category_id == $muscle_category_id ) checked @endif>
-        {{-- 非表示範囲はここから --}}
+      <input type="radio" name="muscle_category_id" class="invisible" id="toggle{{ $list_category[0]->muscle_category_id }}" value="{{ $list_category[0]->muscle_category_id }}" @if( $list_category[0]->muscle_category_id == $muscle_category_id ) checked @endif>
+        {{-- 非表示範囲　ここから --}}
         <div class="switch-wrapper">
           <table border="1">
             <tr>
               <th>削除対象</th>
-              <th>種目名</th>
-              <th>負荷重量</th>
-              <th>レップ数</th>
-              <th>実施日</th>
+              <th>部位</th>
+              <th>トレーニング種目名</th>
+              <th>クールタイム</th>
             </tr>
             {{-- 削除対象フォーム　ここから --}}
-            <form action="{{ route( 'result.delete.save' ) }}" method="post">
+            <form action="{{ route( 'trainning.delete.save' ) }}" method="post">
             @csrf
-            @foreach ( $list_category as $set )
+            @foreach ( $list_category as $event )
             <tr>
-              <td><input type="checkbox" name="result{{ $set->result_id }}" value="{{ $set->result_id }}"></td>
-              <td>{{ $set->trainning_event_name }}</td>
-              <td>{{ $set->trainning_weight }}  kg</td>
-              <td>{{ $set->trainning_reps }}</td>
-              <td>{{ $set->trainning_timestamp }}</td>
+              <td><input type="checkbox" name="trainning_event_id{{ $event->trainning_event_id }}" value="{{ $event->trainning_event_id }}"></td>
+              <td>{{ $event->muscle_category_name }}</td>
+              <td>{{ $event->trainning_event_name }}</td>
+              <td>{{ $event->cooltime }}  日</td>
             </tr>
             @endforeach
           </table>
           
           現在 {{ $list_category->currentPage() }} 目<br>
           @if ( $list_category->onFirstPage() === false )
-            <a href="{{ route( 'result.delete' ) }}">最初のページ</a>
+            <a href="{{ route( 'trainning.list' ) }}">最初のページ</a>
           @else
             最初のページ
           @endif
@@ -129,16 +129,15 @@
           </form>
           {{-- 削除対象フォーム　ここまで --}}
         </div>
-        {{-- 非表示範囲はここまで --}}
+        {{-- 非表示範囲　ここまで --}}
         @endif
         @endforeach
       </input>
       {{-- 各部位の実績一覧 ここまで --}}
     </div>
-    
     <hr>
     
-    <a href="{{ route( 'result.list' ) }}" method="get">戻る</a>
+    <a href="{{ route( 'trainning.list' ) }}" method="get">戻る</a>
     <br>
     <hr>
     <a href="{{ route( 'front.logout' ) }}" method="get">ログアウト</a>

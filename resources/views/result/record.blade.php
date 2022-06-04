@@ -74,7 +74,7 @@
         <button>記録する</button>
         
         <br>
-        <a href="{{ route( 'trainning.register.index' ) }}" method="get">新しい種目を追加する</a><br>
+        <a href="{{ route( 'trainning.register' ) }}" method="get">新しい種目を追加する</a><br>
         <a href="{{ route( 'trainning.list' ) }}" method="get">トレーニング種目リスト</a><br>
         <a href="" method="get">新しいプリセットメニューを追加する</a><br>
         <a href="{{ route( 'result.list' ) }}" method="get">トレーニング実績リスト</a><br>

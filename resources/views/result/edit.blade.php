@@ -92,9 +92,12 @@
           @csrf
             @foreach ( $list_category as $set )
             <tr>
+              {{-- 編集対象の実績id --}}
               <input type="hidden" name="result{{ $set->result_id }}" value="{{ $set->result_id }}">
               <td>
+                {{-- nameに実績idをつけて送信後に編集対象の値を特定できるようにする --}}
                 <select name="trainning_event_id{{ $set->result_id }}">
+                  {{-- トレーニング種目はドロップリストで編集する --}}
                   @foreach ( $list_trainning_event as $trainning_event )
                   <option value="{{ $trainning_event->id }}" @if ( $set->trainning_event_id == $trainning_event->id ) selected @endif>{{ $trainning_event->name }}</option>
                   @endforeach

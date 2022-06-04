@@ -7,10 +7,10 @@
 @section( 'contents' )
     <h1>トレーニング実績一覧</h1>
     @if ( session( 'front.result_edit_save_seccess' ) == true )
-      実績の編集が完了しました<br>
+      トレーニング実績の編集が完了しました<br>
     @endif
     @if ( session( 'front.result_delete_save_seccess' ) == true )
-      実績の削除が完了しました<br>
+      トレーニング実績の削除が完了しました<br>
     @endif
     
     <div class="toggle-test">
@@ -25,6 +25,7 @@
       @endforeach
       <br>
       
+      {{-- 絞った部位のまま編集画面に遷移するために非表示のチェックボックスの値を渡すform --}}
       <form action="{{ route( 'result.edit' ) }}" method="get">
       
       {{-- 全部位の実績一覧 ここから --}}
@@ -39,7 +40,7 @@
               </tr>
               @foreach ( $list_all as $set )
               <tr>
-                  <td>{{ $set->trainning_events_name }}</td>
+                  <td>{{ $set->trainning_event_name }}</td>
                   <td>{{ $set->trainning_weight }}  kg</td>
                   <td>{{ $set->trainning_reps }}</td>
                   <td>{{ $set->trainning_timestamp }}</td>
@@ -83,7 +84,7 @@
             </tr>
             @foreach ( $list_category as $set )
             <tr>
-                <td>{{ $set->trainning_events_name }}</td>
+                <td>{{ $set->trainning_event_name }}</td>
                 <td>{{ $set->trainning_weight }}  kg</td>
                 <td>{{ $set->trainning_reps }}</td>
                 <td>{{ $set->trainning_timestamp }}</td>
@@ -122,10 +123,6 @@
     </form>
     
     <a href="{{ route( 'result.record' ) }}" method="get">戻る</a>
-    {{--
-    <a href="{{ route( 'result.edit' ) }}" method="get">編集</a>
-    <a href="{{ route( 'result.delete' ) }}" method="get">削除</a>
-    --}}
     <br>
     <hr>
     <a href="{{ route( 'front.logout' ) }}" method="get">ログアウト</a>

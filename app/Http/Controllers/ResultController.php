@@ -105,9 +105,14 @@ class ResultController extends Controller
         
         try {
             foreach ( $data as $key => $value ) {
+                /**
+                 * requestから送られてきた配列のうち、resultから始まるキーを見つけて
+                 * 編集対象のresults.idを取得する
+                 * キーの末尾についた数字がresult_idと紐づいている
+                 */
                 if ( preg_match( '/^result/' , $key ) !== 0 ) {
                     $id = $value;
-                    $result = ResultModel::find( $data[ 'result'.$id ] );
+                    $result = ResultModel::find( $id );
                     $result->trainning_event_id = $data[ 'trainning_event_id'.$id ];
                     $result->weight = $data[ 'weight'.$id ];
                     $result->reps = $data[ 'reps'.$id ];
@@ -116,9 +121,8 @@ class ResultController extends Controller
                 }
             }
         } catch ( \Throwable $e ) {
-            echo $e->getMessage();exit;
             $request->session()->flash( 'front.result_edit_save_failure' , true );
-            return redirect( route( 'result.edit' ) );
+            return redirect()->back();
         }
         
         $request->session()->flash( 'front.result_edit_save_seccess' , true );
@@ -168,7 +172,7 @@ class ResultController extends Controller
             }
         } catch ( \Throwable $e ) {
             $request->session()->flash( 'front.result_delete_save_failure' , true );
-            return redirect( route( 'result.delete' ) );
+            return redirect()->back();
         }
         
         $request->session()->flash( 'front.result_delete_save_seccess' , true );

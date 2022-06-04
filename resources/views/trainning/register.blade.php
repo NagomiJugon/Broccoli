@@ -2,7 +2,15 @@
 
 @section( 'contents' )
     <h1>トレ種目登録</h1>
-    <form action="{{ route( 'trainning.register' ) }}" method="post">
+    @if ( $errors->any() )
+        <div>
+            @foreach ( $errors->all() as $error )
+            {{ $error }}<br>
+            @endforeach
+        </div>
+    @endif
+    
+    <form action="{{ route( 'trainning.register.save' ) }}" method="post">
         @csrf
         @foreach ( $list as $muscle_category )
             <input type="radio" name="muscle_category_id" id="muscle_category{{ $muscle_category->id }}" value="{{ $muscle_category->id }}">

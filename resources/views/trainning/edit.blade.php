@@ -1,16 +1,13 @@
 @extends( 'layout' )
 
 @section( 'contents-css' )
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('css/result/list.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('css/result/edit.css') }}">
 @endsection( 'contents-css' )
 
 @section( 'contents' )
-    <h1>トレーニング種目一覧</h1>
-    @if ( session( 'front.trainning_event_edit_save_success' ) == true )
-      トレーニング種目の登録が完了しました<br>
-    @endif
-    @if ( session( 'front.trainning_event_delete_save_seccess' ) == true )
-      トレーニング種目の削除が完了しました<br>
+    <h1>トレーニング種目 編集</h1>
+    @if ( session( 'front.trainning_event_edit_save_failure' ) == true )
+      トレーニング種目の登録に失敗しました。<br>
     @endif
     
     <div class="toggle-test">
@@ -29,11 +26,9 @@
       @endforeach
       <br>
       
-      {{-- 絞った部位のまま編集画面に遷移するために非表示のチェックボックスの値を渡すform --}}
-      <form action="{{ route( 'trainning.edit' ) }}" method="get">
       
       {{-- 全部位の実績一覧 ここから --}}
-      <input type="radio" name="muscle_category_id" id="toggle_all" value="0" checked>
+      <input type="radio" name="muscle_category_id" class="invisible" id="toggle_all" value="0" @if( $muscle_category_id == 0 )checked @endif>
         <div class="switch-wrapper">
           <table border="1">
               <tr>
@@ -41,11 +36,23 @@
                 <th>トレーニング種目名</th>
                 <th>クールタイム</th>
               </tr>
+          <form action="{{ route( 'trainning.edit.save' ) }}" method="post">
+          @csrf
               @foreach ( $list_all as $event )
               <tr>
-                <td>{{ $event->muscle_category_name }}</td>
-                <td>{{ $event->trainning_event_name }}</td>
-                <td>{{ $event->cooltime }}  日</td>
+                <input type="hidden" name="trainning_event_id{{ $event->trainning_event_id }}" value="{{ $event->trainning_event_id }}">
+                <td>
+                  {{-- 部位を編集するドロップリスト --}}
+                  <select name="muscle_category_id{{ $event->trainning_event_id }}">
+                    @foreach ( $muscle_categories as $muscle_category )
+                    <option value="{{ $muscle_category->id }}" @if ( $muscle_category->id == $event->muscle_category_id ) selected @endif>{{ $muscle_category->name }}</option>
+                    @endforeach
+                  </select>
+                </td>
+                {{-- トレーニング種目名を編集するテキストフィールド --}}
+                <td><input name="trainning_event_name{{ $event->trainning_event_id }}" value="{{ $event->trainning_event_name }}" required></td>
+                {{-- クールタイムを編集するフィールド --}}
+                <td><input type="number" min="0" name="cooltime{{ $event->trainning_event_id }}" value="{{ $event->cooltime }}" required>  日</td>
               </tr>
               @endforeach
           </table>
@@ -68,14 +75,18 @@
           @else
             次に進む
           @endif
+          <br>
+          <button>保存する</button>
+          </form>
         </div>
       </input>
       {{-- 全部位の実績一覧 ここまで --}}
       
       {{-- 各部位の実績一覧 ここから --}}
       @foreach ( $list as $list_category )
+      {{-- 登録件数０の部位はテーブルを表示しない --}}
       @if ( count( $list_category ) !== 0 )
-      <input type="radio" name="muscle_category_id" id="toggle{{ $list_category[0]->muscle_category_id }}" value="{{ $list_category[0]->muscle_category_id }}">
+      <input type="radio" name="muscle_category_id" class="invisible" id="toggle{{ $list_category[0]->muscle_category_id }}" value="{{ $list_category[0]->muscle_category_id }}" @if( $list_category[0]->muscle_category_id == $muscle_category_id ) checked @endif>
         <div class="switch-wrapper">
           <table border="1">
             <tr>
@@ -83,11 +94,23 @@
               <th>トレーニング種目名</th>
               <th>クールタイム</th>
             </tr>
+          <form action="{{ route( 'trainning.edit.save' ) }}" method="post">
+          @csrf
             @foreach ( $list_category as $event )
             <tr>
-              <td>{{ $event->muscle_category_name }}</td>
-              <td>{{ $event->trainning_event_name }}</td>
-              <td>{{ $event->cooltime }}  日</td>
+              <input type="hidden" name="trainning_event_id{{ $event->trainning_event_id }}" value="{{ $event->trainning_event_id }}">
+              <td>
+                  {{-- 部位を編集するドロップリスト --}}
+                  <select name="muscle_category_id{{ $event->trainning_event_id }}">
+                    @foreach ( $muscle_categories as $muscle_category )
+                    <option value="{{ $muscle_category->id }}" @if ( $muscle_category->id == $event->muscle_category_id ) selected @endif>{{ $muscle_category->name }}</option>
+                    @endforeach
+                  </select>
+                </td>
+                {{-- トレーニング種目名を編集するテキストフィールド --}}
+                <td><input name="trainning_event_name{{ $event->trainning_event_id }}" value="{{ $event->trainning_event_name }}" required></td>
+                {{-- クールタイムを編集するフィールド --}}
+                <td><input type="number" min="0" name="cooltime{{ $event->trainning_event_id }}" value="{{ $event->cooltime }}" required>  日</td>
             </tr>
             @endforeach
           </table>
@@ -110,6 +133,9 @@
           @else
             次に進む
           @endif
+          <br>
+          <button>保存する</button>
+          </form>
         </div>
         @endif
         @endforeach
@@ -118,11 +144,7 @@
     </div>
     <hr>
     
-    <input type="submit" value="編集">
-    <input type="submit" formaction="{{ route( 'trainning.delete' ) }}" value="削除">
-    </form>
-    
-    <a href="{{ route( 'result.record' ) }}" method="get">戻る</a>
+    <a href="{{ route( 'trainning.list' ) }}" method="get">戻る</a>
     <br>
     <hr>
     <a href="{{ route( 'front.logout' ) }}" method="get">ログアウト</a>

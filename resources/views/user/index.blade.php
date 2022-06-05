@@ -8,5 +8,7 @@
         Email: <input name="email" value="{{ old( 'email' ) }}"><br>
         パスワード: <input name="password" type="password"><br>
         <button>登録する</button>
+        <br>
+        <a href="{{ route( 'front.index' ) }}" method="get">戻る</a>
     </form>
 @endsection( 'contents' )

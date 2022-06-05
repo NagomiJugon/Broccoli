@@ -1,8 +1,8 @@
 @extends( 'layout' )
 
-@section( 'contents-css' )
+@section( 'head-option' )
     <link rel="stylesheet" type="text/css" href="{{ secure_asset('css/result/list.css') }}">
-@endsection( 'contents-css' )
+@endsection( 'head-option' )
 
 @section( 'contents' )
     <h1>トレーニング実績一覧</h1>
@@ -14,9 +14,13 @@
     @endif
     
     <div class="toggle-test">
-    
+      
+      {{-- 筋肉部位ごとのトレーニングメニュー表示ボタンを作成するLABEL --}}
+      {{-- 全部位用ボタン --}}
       <label for="toggle_all" class="label">全種目</label>
+      {{-- 各部位用ボタン --}}
       @foreach ( $muscle_categories as $category )
+      {{-- トレーニング種目が登録されていない部位はボタンを表示しない --}}
       @if ( count( $list[ 'list_id_'.$category->id ] ) !== 0 )
       <label for="toggle{{ $category->id }}" class="label">
         {{ $category->name }}
@@ -30,6 +34,7 @@
       
       {{-- 全部位の実績一覧 ここから --}}
       <input type="radio" name="muscle_category_id" id="toggle_all" value="0" checked>
+        {{-- 非表示範囲　ここから --}}
         <div class="switch-wrapper">
           <table border="1">
               <tr>
@@ -67,6 +72,7 @@
             次に進む
           @endif
         </div>
+        {{-- 非表示範囲　ここまで --}}
       </input>
       {{-- 全部位の実績一覧 ここまで --}}
       
@@ -74,6 +80,7 @@
       @foreach ( $list as $list_category )
       @if ( count( $list_category ) !== 0 )
       <input type="radio" name="muscle_category_id" id="toggle{{ $list_category[0]->muscle_category_id }}" value="{{ $list_category[0]->muscle_category_id }}">
+        {{-- 非表示範囲　ここから --}}
         <div class="switch-wrapper">
           <table border="1">
             <tr>
@@ -111,6 +118,7 @@
             次に進む
           @endif
         </div>
+        {{-- 非表示範囲　ここまで --}}
         @endif
         @endforeach
       </input>
@@ -118,8 +126,12 @@
     </div>
     <hr>
     
+    {{-- 絞った部位のまま編集画面に遷移するために非表示のチェックボックスの値を渡すbottun --}}
     <input type="submit" value="編集">
+    {{-- 絞った部位のまま削除画面に遷移するために非表示のチェックボックスの値を渡すbutton --}}
     <input type="submit" formaction="{{ route( 'result.delete' ) }}" value="削除">
+    {{-- 絞った部位のままチャート画面に遷移するために非表示のチェックボックスの値を渡すbutton --}}
+    <input type="submit" formaction="{{ route( 'result.chart' ) }}" value="チャート">
     </form>
     
     <a href="{{ route( 'result.record' ) }}" method="get">戻る</a>

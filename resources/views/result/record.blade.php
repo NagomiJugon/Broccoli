@@ -1,8 +1,8 @@
 @extends( 'layout' )
 
-@section( 'contents-css' )
+@section( 'head-option' )
     <link rel="stylesheet" type="text/css" href="{{ secure_asset('css/result/record.css') }}">
-@endsection( 'contents-css' )
+@endsection( 'head-option' )
 
 @section( 'contents' )
     <h1>トレーニング実績登録</h1>
@@ -78,7 +78,7 @@
         <a href="{{ route( 'trainning.list' ) }}" method="get">トレーニング種目リスト</a><br>
         <a href="" method="get">新しいプリセットメニューを追加する</a><br>
         <a href="{{ route( 'result.list' ) }}" method="get">トレーニング実績リスト</a><br>
-        <a href="/user/table_init_trainning_event" method="get">トレ種目 テーブル初期化</a><br>
+        <a href="{{ route( 'result.chart' ) }}" method="get">チャート</a>
         
         <hr>
         

@@ -1,8 +1,8 @@
 @extends( 'layout' )
 
-@section( 'contents-css' )
+@section( 'head-option' )
     <link rel="stylesheet" type="text/css" href="{{ secure_asset('css/result/edit.css') }}">
-@endsection( 'contents-css' )
+@endsection( 'head-option' )
 
 @section( 'contents' )
     <h1>トレーニング種目 削除</h1>

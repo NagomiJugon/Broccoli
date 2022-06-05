@@ -22,7 +22,5 @@
         <button>ログインする</button>
         <br>
         <a href="{{ route( 'user.index' ) }}">会員登録</a>
-        <br>
-        <a href="/user/table_init_trainning_event">トレ種目初期化</a>
     </form>
 @endsection( 'contents' )

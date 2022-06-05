@@ -31,7 +31,7 @@ class UserController extends Controller
         
         $request->session()->flash( 'front.user_register_success' , true );
         
-        return redirect( reout( 'front.index' ) );
+        return redirect( route( 'front.index' ) );
     }
     
     public function exeInitTrainningEvent() {

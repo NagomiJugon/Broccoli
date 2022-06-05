@@ -39,6 +39,7 @@ Route::middleware([ 'auth' ])->group( function () {
         Route::post( '/edit/save' , [ ResultController::class, 'editSave' ] )->name( 'result.edit.save' );
         Route::get( '/delete' , [ ResultController::class , 'delete' ] )->name( 'result.delete' );
         Route::post( '/delete/save' , [ ResultController::class , 'deleteSave' ] )->name( 'result.delete.save' );
+        Route::get( '/chart' , [ ResultController::class , 'chart' ] )->name( 'result.chart' );
     });
     Route::prefix( '/preset_menu' )->group( function () {
         Route::get( '/register' ,[ PresetMenuController::class , 'register' ] )->name( 'preset_menu.register' );

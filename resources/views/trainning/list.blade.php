@@ -1,8 +1,8 @@
 @extends( 'layout' )
 
-@section( 'contents-css' )
+@section( 'head-option' )
     <link rel="stylesheet" type="text/css" href="{{ secure_asset('css/result/list.css') }}">
-@endsection( 'contents-css' )
+@endsection( 'head-option' )
 
 @section( 'contents' )
     <h1>トレーニング種目一覧</h1>
@@ -34,6 +34,7 @@
       
       {{-- 全部位の実績一覧 ここから --}}
       <input type="radio" name="muscle_category_id" id="toggle_all" value="0" checked>
+        {{-- 非表示範囲　ここから --}}
         <div class="switch-wrapper">
           <table border="1">
               <tr>
@@ -69,6 +70,7 @@
             次に進む
           @endif
         </div>
+        {{-- 非表示範囲　ここまで --}}
       </input>
       {{-- 全部位の実績一覧 ここまで --}}
       
@@ -76,6 +78,7 @@
       @foreach ( $list as $list_category )
       @if ( count( $list_category ) !== 0 )
       <input type="radio" name="muscle_category_id" id="toggle{{ $list_category[0]->muscle_category_id }}" value="{{ $list_category[0]->muscle_category_id }}">
+        {{-- 非表示範囲　ここから --}}
         <div class="switch-wrapper">
           <table border="1">
             <tr>
@@ -111,6 +114,7 @@
             次に進む
           @endif
         </div>
+        {{-- 非表示範囲　ここまで --}}
         @endif
         @endforeach
       </input>

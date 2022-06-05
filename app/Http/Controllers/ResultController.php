@@ -181,6 +181,59 @@ class ResultController extends Controller
     }
     
     
+    public function chart( Request $request ) {
+        // 選択中の部位のトレーニング種目を取得
+        $data = $request->input();
+        $muscle_category_id = $data[ 'muscle_category_id' ];
+        
+        // 部位表示切り替え用
+        $muscle_categories = MuscleCategoryModel::all();
+        
+        // 全部位表示の場合
+        if ( $muscle_category_id == 0 ) {
+            $trainning_events = TrainningEventModel::rightJoin( 'results' , 'trainning_events.id' , '=' , 'results.trainning_event_id' )
+                                                   ->select( 'trainning_events.id as id' , 'trainning_events.name as name' )
+                                                   ->groupBy( 'id' , 'name' )
+                                                   ->where( 'trainning_events.user_id' , Auth::id() )
+                                                   ->get();
+        } else {
+            // 部位で絞る場合
+            $trainning_events = TrainningEventModel::rightJoin( 'results' , 'trainning_events.id' , '=' , 'results.trainning_event_id' )
+                                                   ->select( 'trainning_events.id as id' , 'trainning_events.name as name' )
+                                                   ->groupBy( 'id' , 'name' )
+                                                   ->where( 'trainning_events.user_id' , Auth::id() )
+                                                   ->where( 'trainning_events.muscle_category_id' , $muscle_category_id )
+                                                   ->get();
+        }
+        
+        // チャートに表示するデータの配列を用意する
+        foreach ( $trainning_events as $trainning_event ) {
+            $id = $trainning_event->id;
+            
+            $results = ResultModel::where( 'trainning_event_id' , $id )->get();
+            
+            // 実績がないトレーニング種目はテータを作成しない
+            if ( $results->count() !== 0 ) {
+                // X軸のラベルは表示しないため、空文字列をセット数分用意する
+                $chart_list[ 'labels'.$id ] = array_fill( 0 , $results->count() , "" );
+                // １日ごとではなく、セット数ごとで重量を作表する
+                foreach ( $results as $result ) {
+                    $chart_list[ 'data'.$id ][] = $result->weight;
+                }
+            }
+        }
+        
+        return view( 'result.chart' , 
+                     [ 
+                        'muscle_categories' => $muscle_categories ,
+                        'muscle_category_id' => $muscle_category_id ,
+                        'trainning_events' => $trainning_events ,
+                        'chart_list' => $chart_list
+                     ]
+                   );
+    }
+    
+    
     protected function getListBuilder() {
         $select_list = [
             'results.id as result_id',
@@ -220,13 +273,13 @@ class ResultController extends Controller
     
     
     public function getPaginateListBuilder() {
-        $per_page = 10; // ユーザー設定で変更できるようにする or 日付ごとで分割
+        $per_page = 20; // ユーザー設定で変更できるようにする or 日付ごとで分割
         return $this->getListBuilder()->paginate( $per_page );
     }
     
     
     public function getPaginateCategorizedListBuilder( $muscle_category_id ) {
-        $per_page = 10;
+        $per_page = 20;
         return $this->getCategorizedListBuilder( $muscle_category_id )->paginate( $per_page );
     }
     

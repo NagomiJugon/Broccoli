@@ -7,6 +7,16 @@
       <title>Broccoli</title>
     </head>
     <body>
-      @yield( 'contents' )
+      <head>
+        <div class="head">
+          @yield( 'page-title' )
+          <div class="header-under-bar"></div>
+        </div>
+      </head>
+      <main>
+        <div class="main">
+          @yield( 'contents' )
+        </div>
+      </main>
     </body>
 </html>

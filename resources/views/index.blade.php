@@ -1,7 +1,14 @@
 @extends( 'layout' )
 
+@section( 'head-option' )
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('css/index.css') }}">
+@endsection( 'head-option' )
+
+@section( 'page-title' )
+    <h2>ログイン</h2>
+@endsection( 'page-section' )
+    
 @section( 'contents' )
-    <h1>ログイン</h1>
     @if ( session( 'front.user_register_success' ) == true  )
         ユーザーの登録が完了しました<br>
     @endif
@@ -11,16 +18,24 @@
     @if ( $errors->any() )
         <div>
         @foreach ( $errors->all() as $error )
-            {{ $error }}
+            {{ $error }}<br>
         @endforeach
         </div>
     @endif
     <form action="{{ route( 'front.login' ) }}" method="post">
         @csrf
-        Email: <input name="email" value="{{ old( 'email' ) }}"><br>
-        パスワード: <input name="password" type="password"><br>
-        <button>ログインする</button>
+        <div class="input-area">
+            <h3>Email</h3>
+            <input name="email" value="{{ old( 'email' ) }}">
+            <h3>パスワード</h3>
+            <input name="password" type="password">
+        </div>
+        
         <br>
-        <a href="{{ route( 'user.index' ) }}">会員登録</a>
+        <div class="button-area">
+            <button class="default-button">ログインする</button>
+            <br>
+            <a class="default-button" href="{{ route( 'user.index' ) }}">会員登録</a>
+        </div>
     </form>
 @endsection( 'contents' )

@@ -1,14 +1,40 @@
 @extends( 'layout' )
 
+@section( 'head-option' )
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('css/index.css') }}">
+@endsection( 'head-option' )
+
+@section( 'page-title' )
+    <h2>会員登録</h2>
+@endsection( 'page-section' )
+
 @section( 'contents' )
-    <h1>会員登録</h1>
+    @if ( $errors->any() )
+        <div>
+        @foreach ( $errors->all() as $error )
+            {{ $error }}<br>
+        @endforeach
+        </div>
+    @endif
+
     <form action="{{ route( 'user.register' ) }}" method="post">
         @csrf
-        ユーザー名: <input name="name" value="{{ old( 'name' ) }}"><br>
-        Email: <input name="email" value="{{ old( 'email' ) }}"><br>
-        パスワード: <input name="password" type="password"><br>
-        <button>登録する</button>
+        <div class="input-area">
+            <h3>ユーザー名</h3>
+            <input name="name" value="{{ old( 'name' ) }}">
+            <h3>Email</h3>
+            <input name="email" value="{{ old( 'email' ) }}">
+            <h3>パスワード</h3>
+            <input name="password" type="password">
+        </div>
+        
         <br>
-        <a href="{{ route( 'front.index' ) }}" method="get">戻る</a>
+        
+        <div class="button-area">
+            <button class="default-button">登録する</button>
+            <br>
+            <a class="default-button" href="{{ route( 'front.index' ) }}" method="get">戻る</a>
+        </div>
+        
     </form>
 @endsection( 'contents' )

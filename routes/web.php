@@ -41,10 +41,12 @@ Route::middleware([ 'auth' ])->group( function () {
         Route::post( '/delete/save' , [ ResultController::class , 'deleteSave' ] )->name( 'result.delete.save' );
         Route::get( '/chart' , [ ResultController::class , 'chart' ] )->name( 'result.chart' );
     });
+    // 未実装
     Route::prefix( '/preset_menu' )->group( function () {
         Route::get( '/register' ,[ PresetMenuController::class , 'register' ] )->name( 'preset_menu.register' );
         Route::post( '/register/save' , [ PresetMenuController::class , 'registerSave' ] )->name( 'preset_menu.register.save' );
     });
+    // テスト用ルート
     Route::prefix( '/user' )->group( function () {
         Route::get( '/table_init_trainning_event' , [ UserController::class , 'exeInitTrainningEvent' ] );
     });

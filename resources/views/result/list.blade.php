@@ -4,8 +4,11 @@
     <link rel="stylesheet" type="text/css" href="{{ secure_asset('css/result/list.css') }}">
 @endsection( 'head-option' )
 
+@section( 'page-title' )
+    <h2>トレーニング実績一覧</h2>
+@endsection( 'page-section' )
+
 @section( 'contents' )
-    <h1>トレーニング実績一覧</h1>
     @if ( session( 'front.result_edit_save_seccess' ) == true )
       トレーニング実績の編集が完了しました<br>
     @endif

@@ -37,10 +37,9 @@ a {
     text-align: center;
 }
 
-.main input {
+.main input:not {
     height: 30px;
     width: 150px;
-    padding-left: 10px;
     margin: 5px;
     outline: solid 1px #070;
     border-radius: 10px;
@@ -51,10 +50,9 @@ a {
     font-weight: bold;
 }
 
-.main input:focus{
+.main input:focus:not {
     height: 35px;
     width: 150px;
-    padding-left: 10px;
     margin: 5px;
     outline: solid 3px #070;
     border-radius: 10px;
@@ -115,6 +113,10 @@ a {
     color: #FFF;
 }
 
+.label-button-area {
+    margin: 15px 0;
+}
+
 .input-area {
     margin-top: 20px;
 }
@@ -133,11 +135,8 @@ a {
 .main table {
     border-collapse: collapse;
     margin: 0 auto;
-}
-
-.main table span {
-    font-size: 15px;
-    color: #444;
+    font-size: 13px;
+    color: #333;
 }
 
 .main tr {
@@ -146,9 +145,15 @@ a {
     border-width: 1px 0;
 }
 
-.main tr:first-child , tr:nth-child(2) , tr:last-child {
+.main tr:first-child {
     border-style: none;
 }
+
+.main td {
+    padding: 0 5px;
+}
+
+
 span {
     font-size: 10px;
     color: #444;
@@ -167,8 +172,16 @@ label span {
 
 /* 共通設定　ここまで */
 
-.label-button-area {
-    margin: 15px 0;
+.main td:nth-child(1) {
+    width: 80px;
+}
+
+.main td:nth-child(2) {
+    width: 240px;
+}
+
+.main td:nth-child(3) {
+    width: 80px;
 }
 
 .toggle-test input {

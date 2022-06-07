@@ -12,7 +12,7 @@
       .chart {max-width:640px;max-height:280px;}
     </style>
     
-    {{-- aa --}}
+    {{-- 絞り込み条件を表示 --}}
     @foreach ( $muscle_categories as $muscle_category )
       @if ( $muscle_category->id == $muscle_category_id )
         <h2>トレーニング部位：{{ $muscle_category->name }}</h2>

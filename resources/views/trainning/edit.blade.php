@@ -61,7 +61,7 @@
                 {{-- トレーニング種目名を編集するテキストフィールド --}}
                 <td><input name="trainning_event_name{{ $event->trainning_event_id }}" value="{{ $event->trainning_event_name }}" required></td>
                 {{-- クールタイムを編集するフィールド --}}
-                <td><input type="number" min="0" name="cooltime{{ $event->trainning_event_id }}" value="{{ $event->cooltime }}" required>  日</td>
+                <td><input type="number" min="0" name="cooltime{{ $event->trainning_event_id }}" value="{{ $event->cooltime }}" required></td>
               </tr>
               @endforeach
           </table>

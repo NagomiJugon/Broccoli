@@ -38,30 +38,52 @@ a {
     text-align: center;
 }
 
-.main input {
+/* input type="hidden"の分引数がずれる */
+.main td:nth-child(3) > input {
+    height: 20px;
+    width: 200px;
+    margin: 5px;
+    border: none;
+    border-bottom: solid 1px #070;
+    text-align: center;
+    font-size: 13px;
+    color: #444;
+}
+
+.main td:nth-child(3) > input:focus {
     height: 30px;
-    width: 150px;
+    width: 200px;
+    margin: 5px;
+    outline: solid 1px #070;
+    border-radius: 10px;
+    border: none;
+    border-bottom: solid 1px #070;
+    text-align: center;
+    font-size: 15px;
+    color: #444;
+}
+
+.main td:nth-child(4) > input {
+    height: 20px;
+    width: 40px;
+    margin: 5px;
+    border: none;
+    border-bottom: solid 1px #070;
+    text-align: center;
+    font-size: 13px;
+    color: #444;
+}
+
+.main td:nth-child(4) > input:focus {
+    height: 30px;
+    width: 40px;
     margin: 5px;
     outline: solid 1px #070;
     border-radius: 10px;
     border: none;
     text-align: center;
-    font-size: 20px;
+    font-size: 15px;
     color: #444;
-    font-weight: bold;
-}
-
-.main input:focus {
-    height: 35px;
-    width: 150px;
-    margin: 5px;
-    outline: solid 3px #070;
-    border-radius: 10px;
-    border: none;
-    text-align: center;
-    font-size: 20px;
-    color: #444;
-    font-weight: bold;
 }
 
 .main select {
@@ -70,18 +92,18 @@ a {
     text-align: center;
     padding-left: 5px;
     margin: 5px;
-    border-radius: 5px;
     border: none;
+    border-bottom: solid 1px #070;
     font-size: 12px;
     color: #444;
 }
 
 .main select:focus{
-    height: 20px;
+    height: 30px;
     width: 70px;
     text-align: center;
     margin: 5px;
-    outline: solid 3px #070;
+    outline: solid 1px #070;
     border-radius: 5px;
     border: none;
     font-size: 12px;
@@ -173,15 +195,19 @@ label span {
 
 /* 共通設定　ここまで */
 
-.main td:nth-child(1) {
+/* 
+元々はtdを指定してたが、thがなぜかおかしな数値になるのでthを指定する
+input type="hidden" が原因？
+*/
+.main th:nth-child(1) {
     width: 80px;
 }
 
-.main td:nth-child(2) {
+.main th:nth-child(2) {
     width: 240px;
 }
 
-.main td:nth-child(3) {
+.main th:nth-child(3) {
     width: 80px;
 }
 

@@ -5,13 +5,15 @@
 @endsection( 'head-option' )
 
 @section( 'contents' )
-    <h1>トレーニング実績 削除画面</h1>
-    @if ( session( 'front.result_delete_save_null' ) == true )
-      削除するデータが選択されていません<br>
-    @endif
-    @if ( session( 'front.result_delete_save_failure' ) == true )
-      実績の削除が失敗しました<br>
-    @endif
+    <div class="message">
+      <h1>トレーニング実績 削除画面</h1>
+      @if ( session( 'front.result_delete_save_null' ) == true )
+        <br><span class="failure">削除するデータが選択されていません</span>
+      @endif
+      @if ( session( 'front.result_delete_save_failure' ) == true )
+        <br><span class="failure">実績の削除が失敗しました</span>
+      @endif
+    </div>
     
     <div class="toggle-test">
     

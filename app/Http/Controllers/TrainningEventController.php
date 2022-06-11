@@ -29,7 +29,7 @@ class TrainningEventController extends Controller
             return redirect( route( 'result.record' ) );
         }
         
-        $request->session()->flash( 'front.trainning_event_register_success' . true );
+        $request->session()->flash( 'front.trainning_event_register_success' , true );
         
         return redirect( route( 'result.record' ) );
     }

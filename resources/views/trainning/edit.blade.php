@@ -9,14 +9,16 @@
 @endsection( 'page-section' )
 
 @section( 'contents' )
-    @if ( session( 'front.trainning_event_edit_save_failure' ) == true )
-      トレーニング種目の登録に失敗しました。<br>
-    @endif
+    <div class="message">
+      @if ( session( 'front.trainning_event_edit_save_failure' ) == true )
+        <br><span class="failure">トレーニング種目の登録に失敗しました</span>
+      @endif
+    </div>
     
     <div class="toggle-test">
       
       <div class="label-button-area">
-        <span>ラベルを押すとトレーニング種目を絞り込めます</span><br>
+        <span class="default-message">ラベルを押すとトレーニング種目を絞り込めます</span><br>
         {{-- 筋肉部位ごとのトレーニングメニュー表示ボタンを作成するLABEL --}}
         {{-- 全部位用ボタン --}}
         <label for="toggle_all" class="label"><span>全種目</span></label>
@@ -61,30 +63,31 @@
                 {{-- トレーニング種目名を編集するテキストフィールド --}}
                 <td><input name="trainning_event_name{{ $event->trainning_event_id }}" value="{{ $event->trainning_event_name }}" required></td>
                 {{-- クールタイムを編集するフィールド --}}
-                <td><input type="number" min="0" name="cooltime{{ $event->trainning_event_id }}" value="{{ $event->cooltime }}" required></td>
+                <td><input type="number" min="0" name="cooltime{{ $event->trainning_event_id }}" value="{{ $event->cooltime }}" required> 日</td>
               </tr>
               @endforeach
           </table>
         
-          <span>現在 {{ $list_all->currentPage() }} ページ目</span><br>
+          <span class="default-message">現在 {{ $list_all->currentPage() }} ページ目</span><br>
           @if ( $list_all->onFirstPage() === false )
-            <a href="{{ route( 'trainning.list' ) }}"><span>最初のページ</span></a>
+            <a href="{{ route( 'trainning.list' ) }}"><span class="default-message">最初のページ</span></a>
           @else
-            <span>最初のページ</span>
+            <span class="default-message">最初のページ</span>
           @endif
-          <span> / </span>
+          <span class="default-message"> / </span>
           @if ( $list_all->previousPageUrl() !== null )
-            <a href="{{ $list_all->previousPageUrl() }}"><span>前に戻る</span></a>
+            <a href="{{ $list_all->previousPageUrl() }}"><span class="default-message">前に戻る</span></a>
           @else
-            <span>前に戻る</span>
+            <span class="default-message">前に戻る</span>
           @endif
-            <span> / </span>
+            <span class="default-message"> / </span>
           @if ( $list_all->nextPageUrl() !== null )
-            <a href="{{ $list_all->nextPageUrl() }}"><span>次に進む</span></a>
+            <a href="{{ $list_all->nextPageUrl() }}"><span class="default-message">次に進む</span></a>
           @else
-            <span>次に進む</span>
+            <span class="default-message">次に進む</span>
           @endif
           <br>
+          <div class="separator"></div>
           <button class="default-button">保存する</button>
           </form>
         </div>
@@ -124,25 +127,26 @@
             @endforeach
           </table>
           
-          <span>現在 {{ $list_category->currentPage() }} ページ目</span><br>
+          <span class="default-message">現在 {{ $list_category->currentPage() }} ページ目</span><br>
           @if ( $list_category->onFirstPage() === false )
-            <a href="{{ route( 'trainning.list' ) }}"><span>最初のページ</span></a>
+            <a href="{{ route( 'trainning.list' ) }}"><span class="default-message">最初のページ</span></a>
           @else
-            <span>最初のページ</span>
+            <span class="default-message">最初のページ</span>
           @endif
-           <span> / </span> 
+           <span class="default-message"> / </span> 
           @if ( $list_category->previousPageUrl() !== null )
-            <a href="{{ $list_category->previousPageUrl() }}"><span>前に戻る</span></a>
+            <a href="{{ $list_category->previousPageUrl() }}"><span class="default-message">前に戻る</span></a>
           @else
-            <span>前に戻る</span>
+            <span class="default-message">前に戻る</span>
           @endif
-           <span> / </span>
+           <span class="default-message"> / </span>
           @if ( $list_category->nextPageUrl() !== null )
-            <a href="{{ $list_category->nextPageUrl() }}"><span>次に進む</span></a>
+            <a href="{{ $list_category->nextPageUrl() }}"><span class="default-message">次に進む</span></a>
           @else
-            <span>次に進む</span>
+            <span class="default-message">次に進む</span>
           @endif
           <br>
+          <div class="separator"></div>
           <button class="default-button">保存する</button>
           </form>
         </div>

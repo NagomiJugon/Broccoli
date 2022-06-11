@@ -6,19 +6,189 @@
     box-sizing: border-box;
 }
 
-.toggle-test label {
-    color: red;
+/* 共通設定ここから */
+a {
+    text-decoration: none;
+}
+
+.head {
+    width: 100%;
+    max-width: 1000px;
+    height: 40px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.header-under-bar {
+    width: 100%;
+    max-width: 1000px;
+    height: 5px;
+    background-color: #070;
+}
+
+.head h2 {
+    color: #070;
+}
+
+.main {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.message .success {
+    font-size: 20px;
+    color: #070;
+}
+
+.message .failure {
+    font-size: 20px;
+    color: #F60;
+}
+
+.main input {
+    height: 30px;
+    width: 150px;
+    padding-left: 10px;
+    margin: 5px;
+    outline: solid 1px #070;
+    border-radius: 10px;
+    border: none;
+    text-align: center;
+    font-size: 20px;
+    color: #444;
+    font-weight: bold;
+}
+
+.main input:focus{
+    height: 35px;
+    width: 150px;
+    padding-left: 10px;
+    margin: 5px;
+    outline: solid 3px #070;
+    border-radius: 10px;
+    border: none;
+    text-align: center;
+    font-size: 20px;
+    color: #444;
+    font-weight: bold;
+}
+
+.main select {
+    height: 30px;
+    width: 310px;
+    text-align: center;
+    margin: 0 10px 10px 10px;
+    outline: solid 1px #070;
+    border-radius: 10px;
+    border: none;
+    color: #444;
+    font-weight: bold;
+}
+
+.main select:focus{
+    height: 35px;
+    width: 310px;
+    text-align: center;
+    margin: 0 10px 10px 10px;
+    outline: solid 3px #070;
+    border-radius: 10px;
+    border: none;
+    color: #444;
+    font-weight: bold;
+}
+
+.default-button {
+    display: inline-block;
+    font-size: 13px;
+    line-height: 30px;
+    width: 100px;
+    height: 30px;
+    margin: 5px 0px;
+    border: none;
+    border-radius: 10px;
+    background-color: #070;
+    color: #FFF;
+}
+
+.wide-button {
+    display: inline-block;
+    font-size: 13px;
+    line-height: 30px;
+    width: 200px;
+    height: 30px;
+    margin: 5px 0px;
+    border: none;
+    border-radius: 10px;
+    background-color: #070;
+    color: #FFF;
+}
+
+.input-area {
+    margin-top: 20px;
+}
+
+.button-area {
+    margin-top: 20px;
+}
+
+.separator {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 5px 0;
+}
+
+.main table {
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+.main table span {
+    font-size: 15px;
+    color: #444;
+}
+
+.main tr {
+    border-color: #999;
+    border-style: solid;
+    border-width: 1px 0;
+}
+
+.main tr:first-child , tr:nth-child(2) , tr:last-child {
+    border-style: none;
+}
+span {
+    font-size: 10px;
+    color: #444;
+}
+
+label span {
+    line-height: 30px;
+    font-size: 13px;
+    margin-right: 5px;
+    padding: 5px 10px;
+    border-radius: 10px;
+    background-color: #070;
+    color: #FFF;
     cursor: pointer;
+}
+
+/* 共通設定　ここまで */
+
+.label-button-area {
+    margin: 15px 0;
 }
 
 .toggle-test input {
     display: none;
 }
 
-.toggle-test input + select {
+.toggle-test input + div {
     display: none;
 }
 
-.toggle-test input:checked + select {
+.toggle-test input:checked + div {
     display: block;
 }

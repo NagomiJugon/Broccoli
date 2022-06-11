@@ -37,6 +37,16 @@ a {
     text-align: center;
 }
 
+.message .success {
+    font-size: 20px;
+    color: #070;
+}
+
+.message .failure {
+    font-size: 20px;
+    color: #F60;
+}
+
 .main input {
     height: 30px;
     width: 300px;
@@ -149,7 +159,7 @@ a {
 }
 
 
-span {
+.default-message {
     font-size: 10px;
     color: #444;
 }

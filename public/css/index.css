@@ -44,19 +44,19 @@ a {
 .main input {
     height: 30px;
     width: 300px;
-    padding-left: 10px;
     outline: solid 1px #070;
     border-radius: 10px;
     border: none;
+    text-align: center;
 }
 
 .main input:focus {
     height: 35px;
     width: 300px;
-    padding-left: 10px;
     outline: solid 3px #070;
     border-radius: 10px;
     border: none;
+    text-align: center;
 }
 
 .default-button {

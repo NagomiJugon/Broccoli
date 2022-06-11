@@ -1,7 +1,7 @@
 @extends( 'layout' )
 
 @section( 'head-option' )
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('css/result/list.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('css/result/record.css') }}">
 @endsection( 'head-option' )
 
 @section( 'page-title' )
@@ -9,21 +9,23 @@
 @endsection( 'page-section' )
 
 @section( 'contents' )
-    @if ( session( 'front.trainning_event_register_success' ) == true )
-        トレーニング種目の登録が完了しました<br>
-    @endif
-    @if ( session( 'front.trainning_event_register_failure' ) == true )
-        トレーニング種目の登録が失敗しました<br>
-    @endif
-    @if ( session( 'front.trainning_result_register_success' ) == true )
-        トレーニング実績の登録が完了しました<br>
-    @endif
-    @if ( session( 'front.trainning_result_register_failure' ) == true )
-        トレーニング実績の登録が失敗しました<br>
-    @endif
-    @if ( session( 'front.trainning_result_register_null' ) == true )
-        登録するデータがありません<br>
-    @endif
+    <div class="message">
+        @if ( session( 'front.trainning_event_register_success' ) == true )
+            <br><span class="success">トレーニング種目の登録が完了しました</span>
+        @endif
+        @if ( session( 'front.trainning_event_register_failure' ) == true )
+            <br><span class="failure">トレーニング種目の登録が失敗しました</span>
+        @endif
+        @if ( session( 'front.trainning_result_register_success' ) == true )
+            <br><span class="success">トレーニング実績の登録が完了しました</span>
+        @endif
+        @if ( session( 'front.trainning_result_register_failure' ) == true )
+            <br><span class="failure">トレーニング実績の登録が失敗しました</span>
+        @endif
+        @if ( session( 'front.trainning_result_register_null' ) == true )
+            <br><span class="failure">登録するデータがありません</span>
+        @endif
+    </div>
     
     
     <form action="{{ route( 'result.register' ) }}" method="post">
@@ -32,7 +34,7 @@
         <div class="toggle-test">
             
             <div class="label-button-area">
-                <span>ラベルを押すとトレーニング種目を絞り込めます</span><br>
+                <span class="default-message">ラベルを押すとトレーニング種目を絞り込めます</span><br>
                 {{-- 筋肉部位ごとのトレーニングメニュー表示ボタンを作成するLABEL --}}
                 {{-- 全部位用ボタン --}}
                 <label for="toggle_all label-button-all">

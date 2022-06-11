@@ -10,15 +10,16 @@
 
 @section( 'contents' )
     
-    <div class="separator"></div>
-    
     @if ( $errors->any() )
-        <div>
+        <div class="message">
             @foreach ( $errors->all() as $error )
-            {{ $error }}<br>
+            {{-- なぜかCSSが適用されない --}}
+            <br><span class="failure">{{ $error }}</span>
             @endforeach
         </div>
     @endif
+    
+    <div class="separator"></div>
     
     <form action="{{ route( 'trainning.register.save' ) }}" method="post">
         @csrf

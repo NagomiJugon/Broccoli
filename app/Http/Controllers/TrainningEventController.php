@@ -37,10 +37,10 @@ class TrainningEventController extends Controller
     
     public function list() {
         
-        $list_all = $this->getPaginateListBuilder();
+        $list_all = $this->getListBuilder()->get();
         
         foreach( MuscleCategoryModel::all() as $category ) {
-            $list[ 'list_id_'.$category->id ] = $this->getPaginateCategorizedListBuilder( $category->id );
+            $list[ 'list_id_'.$category->id ] = $this->getCategorizedListBuilder( $category->id )->get();
         }
         
         $muscle_categories = MuscleCategoryModel::all();
@@ -60,10 +60,10 @@ class TrainningEventController extends Controller
         $d = $request->input();
         $muscle_category_id = $d[ 'muscle_category_id' ];
         
-        $list_all = $this->getPaginateListBuilder();
+        $list_all = $this->getListBuilder()->get();
         
         foreach( MuscleCategoryModel::all() as $category ) {
-            $list[ 'list_id_'.$category->id ] = $this->getPaginateCategorizedListBuilder( $category->id );
+            $list[ 'list_id_'.$category->id ] = $this->getCategorizedListBuilder( $category->id )->get();
         }
         
         $muscle_categories = MuscleCategoryModel::all();
@@ -118,10 +118,10 @@ class TrainningEventController extends Controller
         $d = $request->input();
         $muscle_category_id = $d[ 'muscle_category_id' ];
         
-        $list_all = $this->getPaginateListBuilder();
+        $list_all = $this->getListBuilder()->get();
         
         foreach( MuscleCategoryModel::all() as $category ) {
-            $list[ 'list_id_'.$category->id ] = $this->getPaginateCategorizedListBuilder( $category->id );
+            $list[ 'list_id_'.$category->id ] = $this->getCategorizedListBuilder( $category->id )->get();
         }
         
         $muscle_categories = MuscleCategoryModel::all();
@@ -173,9 +173,7 @@ class TrainningEventController extends Controller
      * 全部位のトレーニング種目を取得する
      * ページネーション付き
      */
-    protected function getPaginateListBuilder() {
-        $per_page = 20;
-        
+    protected function getListBuilder() {
         $select_list = [
             'trainning_events.id as trainning_event_id',
             'trainning_events.name as trainning_event_name',
@@ -188,14 +186,11 @@ class TrainningEventController extends Controller
                                   ->select( $select_list )
                                   ->where( 'trainning_events.user_id' , Auth::id() )
                                   ->orderBy( 'muscle_categories.id' )
-                                  ->orderBy( 'trainning_events.created_at' , 'DESC' )
-                                  ->paginate( $per_page );
+                                  ->orderBy( 'trainning_events.created_at' , 'DESC' );
     }
     
     
-    protected function getPaginateCategorizedListBuilder( $muscle_category_id ) {
-        $per_page = 20;
-        
+    protected function getCategorizedListBuilder( $muscle_category_id ) {
         $select_list = [
             'trainning_events.id as trainning_event_id',
             'trainning_events.name as trainning_event_name',
@@ -208,7 +203,6 @@ class TrainningEventController extends Controller
                                   ->where( 'trainning_events.user_id' , Auth::id() )
                                   ->where( 'trainning_events.muscle_category_id' , $muscle_category_id )
                                   ->orderBy( 'muscle_categories.id' )
-                                  ->orderBy( 'trainning_events.created_at' , 'DESC' )
-                                  ->paginate( $per_page );
+                                  ->orderBy( 'trainning_events.created_at' , 'DESC' );
     }
 }

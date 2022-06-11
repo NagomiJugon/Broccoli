@@ -48,6 +48,15 @@ a {
     color: #F60;
 }
 
+.main .scroll-area {
+    overflow-y: scroll;
+    height: 400px;
+    padding: 0 10px;
+    margin: 0 auto;
+    border-top: 1px dotted #070;
+    border-bottom: 1px dotted #070;
+}
+
 /* input type="hidden"の分引数がずれる */
 .main td:nth-child(3) > input {
     height: 20px;
@@ -187,6 +196,11 @@ a {
     color: #444;
 }
 
+.active-a-message {
+    font-size: 10px;
+    color: #070;
+}
+
 label span {
     line-height: 30px;
     font-size: 13px;
@@ -213,7 +227,7 @@ input type="hidden" が原因？
 }
 
 .main th:nth-child(3) {
-    width: 80px;
+    width: 100px;
 }
 
 .toggle-test label {

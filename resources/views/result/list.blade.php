@@ -9,12 +9,14 @@
 @endsection( 'page-section' )
 
 @section( 'contents' )
-    @if ( session( 'front.result_edit_save_seccess' ) == true )
-      トレーニング実績の編集が完了しました<br>
-    @endif
-    @if ( session( 'front.result_delete_save_seccess' ) == true )
-      トレーニング実績の削除が完了しました<br>
-    @endif
+    <div class="message">
+      @if ( session( 'front.result_edit_save_seccess' ) == true )
+        <br><span class="success">トレーニング実績の編集が完了しました</span>
+      @endif
+      @if ( session( 'front.result_delete_save_seccess' ) == true )
+        <br><span class="success">トレーニング実績の削除が完了しました</span>
+      @endif
+    </div>
     
     <div class="toggle-test">
       
@@ -44,41 +46,27 @@
       <input type="radio" name="muscle_category_id" id="toggle_all" value="0" checked>
         {{-- 非表示範囲　ここから --}}
         <div class="switch-wrapper">
-          <table>
+          <div class="scroll-area">
+            <div class="separator"></div>
+            <table>
               <tr>
                   <th>種目名</th>
-                  <th>負荷重量</th>
+                  <th>負荷(kg)</th>
                   <th>レップ</th>
                   <th>実施日</th>
               </tr>
               @foreach ( $list_all as $set )
               <tr>
                   <td>{{ $set->trainning_event_name }}</td>
-                  <td>{{ $set->trainning_weight }}  kg</td>
+                  <td>{{ $set->trainning_weight }}</td>
                   <td>{{ $set->trainning_reps }}</td>
                   <td>{{ $set->trainning_timestamp }}</td>
               </tr>
               @endforeach
-          </table>
-        
-          <span class="default-message">現在 {{ $list_all->currentPage() }} ページ目</span><br>
-          @if ( $list_all->onFirstPage() === false )
-            <a href="{{ route( 'result.list' ) }}"><span class="active-a-message">最初のページ</span></a>
-          @else
-            <span class="default-message">最初のページ</span>
-          @endif
-          <span class="default-message"> / </span>
-          @if ( $list_all->previousPageUrl() !== null )
-            <a href="{{ $list_all->previousPageUrl() }}"><span class="active-a-message">前に戻る</span></a>
-          @else
-            <span class="default-message">前に戻る</span>
-          @endif
-            <span class="default-message"> / </span>
-          @if ( $list_all->nextPageUrl() !== null )
-            <a href="{{ $list_all->nextPageUrl() }}"><span class="active-a-message">次に進む</span></a>
-          @else
-            <span class="default-message">次に進む</span>
-          @endif
+            </table>
+            <div class="separator"></div>
+          </div>
+          <div class="separator"></div>
         </div>
         {{-- 非表示範囲　ここまで --}}
       </input>
@@ -90,41 +78,27 @@
       <input type="radio" name="muscle_category_id" id="toggle{{ $list_category[0]->muscle_category_id }}" value="{{ $list_category[0]->muscle_category_id }}">
         {{-- 非表示範囲　ここから --}}
         <div class="switch-wrapper">
-          <table>
-            <tr>
-                <th>種目名</th>
-                <th>負荷重量</th>
-                <th>レップ</th>
-                <th>実施日</th>
-            </tr>
-            @foreach ( $list_category as $set )
-            <tr>
-                <td>{{ $set->trainning_event_name }}</td>
-                <td>{{ $set->trainning_weight }}  kg</td>
-                <td>{{ $set->trainning_reps }}</td>
-                <td>{{ $set->trainning_timestamp }}</td>
-            </tr>
-            @endforeach
-          </table>
-          
-          <span class="default-message">現在 {{ $list_category->currentPage() }} ページ目</span><br>
-          @if ( $list_category->onFirstPage() === false )
-            <a href="{{ route( 'result.list' ) }}"><span class="active-a-message">最初のページ</span></a>
-          @else
-            <span class="default-message">最初のページ</span>
-          @endif
-           <span class="default-message"> / </span> 
-          @if ( $list_category->previousPageUrl() !== null )
-            <a href="{{ $list_category->previousPageUrl() }}"><span class="active-a-message">前に戻る</span></a>
-          @else
-            <span class="default-message">前に戻る</span>
-          @endif
-           <span class="default-message"> / </span>
-          @if ( $list_category->nextPageUrl() !== null )
-            <a href="{{ $list_category->nextPageUrl() }}"><span class="active-a-message">次に進む</span></a>
-          @else
-            <span class="default-message">次に進む</span>
-          @endif
+          <div class="scroll-area">
+            <div class="separator"></div>
+            <table>
+              <tr>
+                  <th>種目名</th>
+                  <th>負荷(kg)</th>
+                  <th>レップ</th>
+                  <th>実施日</th>
+              </tr>
+              @foreach ( $list_category as $set )
+              <tr>
+                  <td>{{ $set->trainning_event_name }}</td>
+                  <td>{{ $set->trainning_weight }}</td>
+                  <td>{{ $set->trainning_reps }}</td>
+                  <td>{{ $set->trainning_timestamp }}</td>
+              </tr>
+              @endforeach
+            </table>
+            <div class="separator"></div>
+          </div>
+          <div class="separator"></div>
         </div>
         {{-- 非表示範囲　ここまで --}}
         @endif

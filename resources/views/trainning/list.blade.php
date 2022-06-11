@@ -46,39 +46,25 @@
       <input type="radio" name="muscle_category_id" id="toggle_all" value="0" checked>
         {{-- 非表示範囲　ここから --}}
         <div class="switch-wrapper">
-          <table>
-              <tr>
-                <th>部位</th>
-                <th>トレーニング種目名</th>
-                <th>クールタイム</th>
-              </tr>
-              @foreach ( $list_all as $event )
-              <tr>
-                <td>{{ $event->muscle_category_name }}</td>
-                <td>{{ $event->trainning_event_name }}</td>
-                <td>{{ $event->cooltime }}  日</td>
-              </tr>
-              @endforeach
-          </table>
-        
-          <span class="default-message">現在 {{ $list_all->currentPage() }} ページ目</span><br>
-          @if ( $list_all->onFirstPage() === false )
-            <a href="{{ route( 'trainning.list' ) }}"><span>最初のページ</span></a>
-          @else
-            <span class="default-message">最初のページ</span>
-          @endif
-          <span class="default-message"> / </span>
-          @if ( $list_all->previousPageUrl() !== null )
-            <a href="{{ $list_all->previousPageUrl() }}"><span class="default-message">前に戻る</span></a>
-          @else
-            <span class="default-message">前に戻る</span>
-          @endif
-            <span class="default-message"> / </span>
-          @if ( $list_all->nextPageUrl() !== null )
-            <a href="{{ $list_all->nextPageUrl() }}"><span class="default-message">次に進む</span></a>
-          @else
-            <span class="default-message">次に進む</span>
-          @endif
+          <div class="scroll-area">
+            <div class="separator"></div>
+            <table>
+                <tr>
+                  <th>部位</th>
+                  <th>トレーニング種目名</th>
+                  <th>クールタイム</th>
+                </tr>
+                @foreach ( $list_all as $event )
+                <tr>
+                  <td>{{ $event->muscle_category_name }}</td>
+                  <td>{{ $event->trainning_event_name }}</td>
+                  <td>{{ $event->cooltime }}  日</td>
+                </tr>
+                @endforeach
+            </table>
+            <div class="separator"></div>
+          </div>
+          <div class="separator"></div>
         </div>
         {{-- 非表示範囲　ここまで --}}
       </input>
@@ -90,39 +76,25 @@
       <input type="radio" name="muscle_category_id" id="toggle{{ $list_category[0]->muscle_category_id }}" value="{{ $list_category[0]->muscle_category_id }}">
         {{-- 非表示範囲　ここから --}}
         <div class="switch-wrapper">
-          <table>
-            <tr>
-              <th>部位</th>
-              <th>トレーニング種目名</th>
-              <th>クールタイム</th>
-            </tr>
-            @foreach ( $list_category as $event )
-            <tr>
-              <td>{{ $event->muscle_category_name }}</td>
-              <td>{{ $event->trainning_event_name }}</td>
-              <td>{{ $event->cooltime }}  日</td>
-            </tr>
-            @endforeach
-          </table>
-          
-          <span class="default-message">現在 {{ $list_category->currentPage() }} ページ目</span><br>
-          @if ( $list_category->onFirstPage() === false )
-            <a href="{{ route( 'trainning.list' ) }}"><span class="default-message">最初のページ</span></a>
-          @else
-            <span class="default-message">最初のページ</span>
-          @endif
-           <span class="default-message"> / </span> 
-          @if ( $list_category->previousPageUrl() !== null )
-            <a href="{{ $list_category->previousPageUrl() }}"><span class="default-message">前に戻る</span></a>
-          @else
-            <span class="default-message">前に戻る</span>
-          @endif
-           <span class="default-message"> / </span>
-          @if ( $list_category->nextPageUrl() !== null )
-            <a href="{{ $list_category->nextPageUrl() }}"><span class="default-message">次に進む</span></a>
-          @else
-            <span class="default-message">次に進む</span>
-          @endif
+          <div class="scroll-area">
+            <div class="separator"></div>
+            <table>
+              <tr>
+                <th>部位</th>
+                <th>トレーニング種目名</th>
+                <th>クールタイム</th>
+              </tr>
+              @foreach ( $list_category as $event )
+              <tr>
+                <td>{{ $event->muscle_category_name }}</td>
+                <td>{{ $event->trainning_event_name }}</td>
+                <td>{{ $event->cooltime }}  日</td>
+              </tr>
+              @endforeach
+            </table>
+            <div class="separator"></div>
+          </div>
+          <div class="separator"></div>
         </div>
         {{-- 非表示範囲　ここまで --}}
         @endif

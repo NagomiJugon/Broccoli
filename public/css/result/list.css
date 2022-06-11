@@ -47,6 +47,15 @@ a {
     color: #F60;
 }
 
+.main .scroll-area {
+    overflow-y: scroll;
+    height: 400px;
+    margin: 0 auto;
+    padding: 0 10px;
+    border-top: 1px dotted #070;
+    border-bottom: 1px dotted #070;
+}
+
 .main input:not {
     height: 30px;
     width: 150px;

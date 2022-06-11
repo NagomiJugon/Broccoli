@@ -6,6 +6,258 @@
     box-sizing: border-box;
 }
 
+
+/* 共通設定ここから */
+a {
+    text-decoration: none;
+}
+
+.head {
+    width: 100%;
+    max-width: 1000px;
+    height: 40px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.header-under-bar {
+    width: 100%;
+    max-width: 1000px;
+    height: 5px;
+    background-color: #070;
+}
+
+.head h2 {
+    color: #070;
+}
+
+.main {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.message .success {
+    font-size: 20px;
+    color: #070;
+}
+
+.message .failure {
+    font-size: 20px;
+    color: #F60;
+}
+
+.main .scroll-area {
+    overflow-x: scroll;
+    overflow-y: scroll;
+    height: 400px;
+    margin: 0 auto;
+    padding: 0 10px;
+    border-top: 1px dotted #070;
+    border-bottom: 1px dotted #070;
+}
+
+/* input type="hidden"の分引数がずれる */
+.main td:nth-child(3) > input {
+    height: 20px;
+    width: 50px;
+    margin: 5px;
+    border: none;
+    border-bottom: solid 1px #070;
+    text-align: center;
+    font-size: 13px;
+    color: #444;
+}
+
+.main td:nth-child(3) > input:focus {
+    height: 30px;
+    width: 50px;
+    margin: 5px;
+    outline: solid 1px #070;
+    border-radius: 10px;
+    border: none;
+    text-align: center;
+    font-size: 15px;
+    color: #444;
+}
+
+.main td:nth-child(4) > input {
+    height: 20px;
+    width: 40px;
+    margin: 5px;
+    border: none;
+    border-bottom: solid 1px #070;
+    text-align: center;
+    font-size: 13px;
+    color: #444;
+}
+
+.main td:nth-child(4) > input:focus {
+    height: 30px;
+    width: 40px;
+    margin: 5px;
+    outline: solid 1px #070;
+    border-radius: 10px;
+    border: none;
+    text-align: center;
+    font-size: 15px;
+    color: #444;
+}
+
+.main td:nth-child(5) > input {
+    height: 20px;
+    width: 200px;
+    margin: 5px;
+    border: none;
+    border-bottom: solid 1px #070;
+    text-align: center;
+    font-size: 13px;
+    color: #444;
+}
+
+.main td:nth-child(5) > input:focus {
+    height: 30px;
+    width: 200px;
+    margin: 5px;
+    outline: solid 1px #070;
+    border-radius: 10px;
+    border: none;
+    text-align: center;
+    font-size: 15px;
+    color: #444;
+}
+
+.main select {
+    height: 20px;
+    width: 200px;
+    text-align: center;
+    padding-left: 5px;
+    margin: 5px;
+    border: none;
+    border-bottom: solid 1px #070;
+    font-size: 12px;
+    color: #444;
+}
+
+.main select:focus{
+    height: 30px;
+    width: 200px;
+    text-align: center;
+    margin: 5px;
+    outline: solid 1px #070;
+    border-radius: 5px;
+    border: none;
+    font-size: 12px;
+    color: #444;
+}
+
+.default-button {
+    display: inline-block;
+    font-size: 13px;
+    line-height: 30px;
+    width: 100px;
+    height: 30px;
+    margin: 5px 0px;
+    border: none;
+    border-radius: 10px;
+    background-color: #070;
+    color: #FFF;
+}
+
+.wide-button {
+    display: inline-block;
+    font-size: 13px;
+    line-height: 30px;
+    width: 200px;
+    height: 30px;
+    margin: 5px 0px;
+    border: none;
+    border-radius: 10px;
+    background-color: #070;
+    color: #FFF;
+}
+
+.label-button-area {
+    margin: 15px 0;
+}
+
+.input-area {
+    margin-top: 20px;
+}
+
+.button-area {
+    margin-top: 20px;
+}
+
+.separator {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 5px 0;
+}
+
+.main table {
+    border-collapse: collapse;
+    margin: 0 auto;
+    font-size: 13px;
+    color: #333;
+}
+
+.main tr {
+    border-color: #999;
+    border-style: solid;
+    border-width: 1px 0;
+}
+
+.main tr:first-child {
+    border-style: none;
+}
+
+
+.default-message {
+    font-size: 10px;
+    color: #444;
+}
+
+.active-a-message {
+    font-size: 10px;
+    color: #070;
+}
+
+label span {
+    line-height: 30px;
+    font-size: 13px;
+    margin-right: 5px;
+    padding: 5px 10px;
+    border-radius: 10px;
+    background-color: #070;
+    color: #FFF;
+    cursor: pointer;
+}
+
+/* 共通設定　ここまで */
+
+/* 
+元々はtdを指定してたが、thがなぜかおかしな数値になるのでthを指定する
+input type="hidden" が原因？
+*/
+.main th:nth-child(1) {
+    width: 210px;
+}
+
+.main th:nth-child(2) {
+    width: 60px;
+}
+
+.main th:nth-child(3) {
+    width: 60px;
+}
+
+.main th:nth-child(4) {
+    width: 210px;
+}
+
 .toggle-test label {
     color: red;
     cursor: pointer;

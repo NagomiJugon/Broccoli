@@ -66,7 +66,7 @@ class ResultController extends Controller
         $list_all = $this->getPaginateListBuilder();
         
         foreach( MuscleCategoryModel::all() as $category ) {
-            $list[ 'list_id_'.$category->id ] = $this->getPaginateCategorizedListBuilder( $category->id );
+            $list[ 'list_id_'.$category->id ] = $this->getCategorizedListBuilder( $category->id )->get();
         }
         
         $muscle_categories = MuscleCategoryModel::all();
@@ -78,15 +78,15 @@ class ResultController extends Controller
     
     
     public function edit( Request $request ) {
-        $d = $request->input();
-        $muscle_category_id = $d[ 'muscle_category_id' ];
+        $data = $request->input();
+        $muscle_category_id = $data[ 'muscle_category_id' ];
         
         $list_trainning_event = TrainningEventModel::where( 'user_id' , Auth::id() )->get();
         
         $list_all = $this->getPaginateListBuilder();
         
         foreach( MuscleCategoryModel::all() as $category ) {
-            $list[ 'list_id_'.$category->id ] = $this->getPaginateCategorizedListBuilder( $category->id );
+            $list[ 'list_id_'.$category->id ] = $this->getCategorizedListBuilder( $category->id )->get();
         }
         
         $muscle_categories = MuscleCategoryModel::all();
@@ -137,7 +137,7 @@ class ResultController extends Controller
         $list_all = $this->getPaginateListBuilder();
         
         foreach( MuscleCategoryModel::all() as $category ) {
-            $list[ 'list_id_'.$category->id ] = $this->getPaginateCategorizedListBuilder( $category->id );
+            $list[ 'list_id_'.$category->id ] = $this->getCategorizedListBuilder( $category->id )->get();
         }
         
         $list_trainning_event = TrainningEventModel::where( 'user_id' , Auth::id() )->get();

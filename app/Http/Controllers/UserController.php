@@ -22,12 +22,11 @@ class UserController extends Controller
         
         try {
             $r = UserModel::create( $datum );
+            $this->initTrainningEventsTable( $r->id );
         } catch ( \Throwable $e ) {
             $request->session()->flash( 'front.user_register_failure' , true );
             return redirect( route( 'front.index' ) );
         }
-        
-        $this->initTrainningEventsTable( $r->id );
         
         $request->session()->flash( 'front.user_register_success' , true );
         

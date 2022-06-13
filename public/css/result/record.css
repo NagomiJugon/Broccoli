@@ -112,6 +112,20 @@ a {
     color: #FFF;
 }
 
+.default-button:active {
+    display: inline-block;
+    font-size: 13px;
+    line-height: 30px;
+    width: 100px;
+    height: 30px;
+    margin: 5px 0px;
+    outline: 1px solid #070;
+    border: none;
+    border-radius: 10px;
+    background-color: #FFF;
+    color: #070;
+}
+
 .wide-button {
     display: inline-block;
     font-size: 13px;
@@ -123,6 +137,20 @@ a {
     border-radius: 10px;
     background-color: #070;
     color: #FFF;
+}
+
+.wide-button:active {
+    display: inline-block;
+    font-size: 13px;
+    line-height: 30px;
+    width: 200px;
+    height: 30px;
+    margin: 5px 0px;
+    outline: 1px solid #070;
+    border: none;
+    border-radius: 10px;
+    background-color: #FFF;
+    color: #070;
 }
 
 .input-area {
@@ -171,6 +199,17 @@ label span {
     padding: 5px 10px;
     border-radius: 10px;
     background-color: #070;
+    color: #FFF;
+    cursor: pointer;
+}
+
+.disabled-label span {
+    line-height: 30px;
+    font-size: 13px;
+    margin-right: 5px;
+    padding: 5px 10px;
+    border-radius: 10px;
+    background-color: #999;
     color: #FFF;
     cursor: pointer;
 }

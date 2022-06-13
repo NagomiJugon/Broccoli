@@ -11,7 +11,7 @@
 @section( 'contents' )
     <div class="message">
       @if ( session( 'front.trainning_event_delete_save_failure' ) == true )
-        <br><span class="failure">トレーニング種目の削除に失敗しました</span>
+        <br><span class="failure">既に実績登録済みのトレーニング種目は<br>削除できません</span>
       @endif
       @if ( session( 'front.trainning_event_delete_save_null' ) == true )
         <br><span class="failure">削除するデータが選択されていません</span>
@@ -73,7 +73,7 @@
             <div class="separator"></div>
           </div>
           <div class="separator"></div>
-          <button class="default-button" onclick='return confirm( "選択されたトレーニング種目を削除します。\nこの操作は戻せません。\n削除してよろしいですか？" )'>保存する</button>
+          <button class="default-button" onclick='return confirm( "選択されたトレーニング種目を削除します。\nこれらのトレーニング種目で登録された実績も削除されます。\nこの操作は戻せません。\n削除してよろしいですか？" )'>削除する</button>
           </form>
           {{-- 削除対象フォーム　ここまで --}}
         </div>
@@ -102,8 +102,9 @@
               @foreach ( $list_category as $event )
               <tr>
                 <td>
-                  <label for="chk{{ $event->trainning_event_id }}" class="label">
-                    <input type="checkbox" name="trainning_event_id{{ $event->trainning_event_id }}" class="invisible" id="chk{{ $event->trainning_event_id }}" value="{{ $event->trainning_event_id }}">
+                   {{-- idに$event->trainning_event_idを付けるだけでは重複するので$muscle_category_idも末尾に付与する --}}
+                  <label for="chk{{ $event->trainning_event_id . $muscle_category_id }}" class="label">
+                    <input type="checkbox" name="trainning_event_id{{ $event->trainning_event_id }}" class="invisible" id="chk{{ $event->trainning_event_id . $muscle_category_id }}" value="{{ $event->trainning_event_id }}">
                     <span>x</span>
                   </label>
                 </td>
@@ -116,7 +117,7 @@
             <div class="separator"></div>
           </div>
           <div class="separator"></div>
-          <button class="default-button" onclick='return confirm( "選択されたトレーニング種目を削除します。\nこの操作は戻せません。\n削除してよろしいですか？" )'>保存する</button>
+          <button class="default-button" onclick='return confirm( "選択されたトレーニング種目を削除します。\nこの操作は戻せません。\n削除してよろしいですか？" )'>削除する</button>
           </form>
           {{-- 削除対象フォーム　ここまで --}}
         </div>

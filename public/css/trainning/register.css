@@ -110,17 +110,18 @@ a {
     color: #FFF;
 }
 
-.wide-button {
+.default-button:active {
     display: inline-block;
     font-size: 13px;
     line-height: 30px;
-    width: 200px;
+    width: 100px;
     height: 30px;
     margin: 5px 0px;
+    outline: 1px solid #070;
     border: none;
     border-radius: 10px;
-    background-color: #070;
-    color: #FFF;
+    background-color: #FFF;
+    color: #070;
 }
 
 .input-area {

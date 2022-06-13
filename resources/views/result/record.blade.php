@@ -37,17 +37,20 @@
                 <span class="default-message">ラベルを押すとトレーニング種目を絞り込めます</span><br>
                 {{-- 筋肉部位ごとのトレーニングメニュー表示ボタンを作成するLABEL --}}
                 {{-- 全部位用ボタン --}}
-                <label for="toggle_all label-button-all">
-                    <span>全種目</span>
-                </label>
+                <label for="toggle_all" class="label"><span>全種目</span></label>
                 {{-- 各部位用ボタン --}}
-                @foreach ( $list as $list_category )
-                <label for="toggle{{ current( $list_category )[0]->muscle_category_id }}">
-                    <span>{{ current( $list_category )[0]->muscle_category_name }}</span>
-                    @if ( current( $list_category )[0]->muscle_category_id == 3 ) <br> @endif
+                @foreach ( $muscle_categories as $category )
+                {{-- トレーニング種目が登録されていない部位はボタンは不活性にする --}}
+                @if ( count( $list[ 'list_id_'.$category->id ] ) !== 0 )
+                <label for="toggle{{ $category->id }}" class="label">
+                @else
+                <label class="disabled-label">
+                @endif
+                  <span>{{ $category->name }}</span>
+                  @if ( $category->id == 3 ) <br> @endif
                 </label>
                 @endforeach
-            </div>
+             </div>
             
             {{-- 
                 筋肉部位ごとのトレーニングメニューをドロップダウンで表示
@@ -69,6 +72,7 @@
             </input>
             {{-- 各部位ごとのリスト --}}
             @foreach ( $list as $list_category )
+            @if ( count( $list_category ) != 0 )
             <input type="radio" name="selected_category" id="toggle{{ current( $list_category )[0]->muscle_category_id }}" value="{{ current( $list_category )[0]->muscle_category_id }}">
                 {{-- 非表示範囲　ここから --}}
                 <div class="switch-wrapper">
@@ -80,6 +84,7 @@
                 </div>
                 {{-- 非表示範囲　ここまで --}}
             </input>
+            @endif
             @endforeach
         </div>
             

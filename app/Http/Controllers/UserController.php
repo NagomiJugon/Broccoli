@@ -22,10 +22,9 @@ class UserController extends Controller
         
         try {
             $r = UserModel::create( $datum );
-            error_log("1");
-            //$this->initTrainningEventsTable( $r->id );
-            error_log("2");
+            $this->initTrainningEventsTable( $r->id );
         } catch ( \Throwable $e ) {
+           echo $e->getMessage();
             $request->session()->flash( 'front.user_register_failure' , true );
             return redirect( route( 'front.index' ) );
         }
@@ -132,9 +131,11 @@ class UserController extends Controller
         foreach ( $list as &$datum ) {
             $datum[ 'user_id' ] = $user_id;
         }
+        error_log("1");
         unset( $datum );
-        
+        error_log("2");
         TrainningEventModel::insert( $list );
+        error_log("3");
     }
     
 }

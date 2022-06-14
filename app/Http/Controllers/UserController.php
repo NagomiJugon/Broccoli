@@ -25,6 +25,9 @@ class UserController extends Controller
             $this->initTrainningEventsTable( $r->id );
         } catch ( \Throwable $e ) {
            error_log("///////////////////////////////////////////////////////////////////////");
+           if ( $r !== null ) {
+              error_log( "aaaaaaaaa  valorant daisuki" );
+           }
            /*error_log( $r->id );
            error_log( $r->name );
            error_log( $r->email );*/

@@ -24,7 +24,6 @@ class UserController extends Controller
             $r = UserModel::create( $datum );
             $this->initTrainningEventsTable( $r->id );
         } catch ( \Throwable $e ) {
-           echo $e->getMessage();
             $request->session()->flash( 'front.user_register_failure' , true );
             return redirect( route( 'front.index' ) );
         }
@@ -43,57 +42,57 @@ class UserController extends Controller
         $list = [
             [
                'name' => 'チェストプレス',
-               'muscle_category_id' => '1',
+               'muscle_category_id' => '4',
                'cooltime' => '2',
             ],
             [
                'name' => 'ペクトラル フライ',
-               'muscle_category_id' => '1',
+               'muscle_category_id' => '4',
                'cooltime' => '2',
             ],
             [
                'name' => 'ディップ',
-               'muscle_category_id' => '1',
+               'muscle_category_id' => '4',
                'cooltime' => '2',
             ],
             [
                'name' => 'ONE HAND UPWARD FLY',
-               'muscle_category_id' => '1',
+               'muscle_category_id' => '4',
                'cooltime' => '2',
             ],
             [
                'name' => 'ダンベルプレス',
-               'muscle_category_id' => '1',
+               'muscle_category_id' => '4',
                'cooltime' => '2',
             ],
             [
                'name' => 'デッドリフト',
-               'muscle_category_id' => '2',
+               'muscle_category_id' => '4',
                'cooltime' => '2',
             ],
             [
                'name' => 'チン(ワイド)',
-               'muscle_category_id' => '2',
+               'muscle_category_id' => '4',
                'cooltime' => '2',
             ],
             [
                'name' => 'チン(ナロウ)',
-               'muscle_category_id' => '2',
+               'muscle_category_id' => '4',
                'cooltime' => '2',
             ],
             [
                'name' => 'シーテッド ロー',
-               'muscle_category_id' => '2',
+               'muscle_category_id' => '4',
                'cooltime' => '2',
             ],
             [
                'name' => 'ショルダープレス',
-               'muscle_category_id' => '3',
+               'muscle_category_id' => '4',
                'cooltime' => '2',
             ],
             [
                'name' => 'サイドレイズ',
-               'muscle_category_id' => '3',
+               'muscle_category_id' => '4',
                'cooltime' => '2',
             ],
             [
@@ -108,22 +107,22 @@ class UserController extends Controller
             ],
             [
                'name' => 'レッグプレス',
-               'muscle_category_id' => '5',
+               'muscle_category_id' => '4',
                'cooltime' => '3',
             ],
             [
                'name' => 'レッグエクステンション',
-               'muscle_category_id' => '5',
+               'muscle_category_id' => '4',
                'cooltime' => '2',
             ],
             [
                'name' => 'シーテッド レッグカール',
-               'muscle_category_id' => '5',
+               'muscle_category_id' => '4',
                'cooltime' => '2',
             ],
             [
                'name' => 'アブドミナルクランチ',
-               'muscle_category_id' => '6',
+               'muscle_category_id' => '4',
                'cooltime' => '1',
             ],
         ];

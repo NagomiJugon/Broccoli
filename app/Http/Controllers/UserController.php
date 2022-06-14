@@ -21,16 +21,14 @@ class UserController extends Controller
         $datum[ 'password' ] = Hash::make( $datum[ 'password' ] );
         
         try {
+           $users = DB::table('users')->get();
             $r = UserModel::create( $datum );
             $this->initTrainningEventsTable( $r->id );
         } catch ( \Throwable $e ) {
            error_log("///////////////////////////////////////////////////////////////////////");
-           if ( $r !== null ) {
+           if ( $r->id == null ) {
               error_log( "aaaaaaaaa  valorant daisuki" );
            }
-           /*error_log( $r->id );
-           error_log( $r->name );
-           error_log( $r->email );*/
            error_log("///////////////////////////////////////////////////////////////////////");
             $request->session()->flash( 'front.user_register_failure' , true );
             return redirect( route( 'front.index' ) );

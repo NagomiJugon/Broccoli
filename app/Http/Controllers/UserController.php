@@ -23,7 +23,7 @@ class UserController extends Controller
         try {
             $r = UserModel::create( $datum );
             error_log("1");
-            $this->initTrainningEventsTable( $r->id );
+            //$this->initTrainningEventsTable( $r->id );
             error_log("2");
         } catch ( \Throwable $e ) {
             $request->session()->flash( 'front.user_register_failure' , true );

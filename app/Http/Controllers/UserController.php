@@ -24,6 +24,9 @@ class UserController extends Controller
             $r = UserModel::create( $datum );
             $this->initTrainningEventsTable( $r->id );
         } catch ( \Throwable $e ) {
+           error_log("///////////////////////////////////////////////////////////////////////");
+           error_log($r);
+           error_log("///////////////////////////////////////////////////////////////////////");
             $request->session()->flash( 'front.user_register_failure' , true );
             return redirect( route( 'front.index' ) );
         }

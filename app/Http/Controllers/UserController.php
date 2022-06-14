@@ -25,7 +25,9 @@ class UserController extends Controller
             $this->initTrainningEventsTable( $r->id );
         } catch ( \Throwable $e ) {
            error_log("///////////////////////////////////////////////////////////////////////");
-           error_log($r);
+           error_log( $r->id );
+           error_log( $r->name );
+           error_log( $r->email );
            error_log("///////////////////////////////////////////////////////////////////////");
             $request->session()->flash( 'front.user_register_failure' , true );
             return redirect( route( 'front.index' ) );

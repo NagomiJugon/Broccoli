@@ -17,19 +17,15 @@ class UserController extends Controller
     
     public function register( UserRegisterPost $request ) {
         $datum = $request->validated();
-        
+        //dd($datum);
         $datum[ 'password' ] = Hash::make( $datum[ 'password' ] );
         
         try {
-           $users = DB::table('users')->get();
             $r = UserModel::create( $datum );
+            error_log("1");
             $this->initTrainningEventsTable( $r->id );
+            error_log("2");
         } catch ( \Throwable $e ) {
-           error_log("///////////////////////////////////////////////////////////////////////");
-           if ( $r->id == null ) {
-              error_log( "aaaaaaaaa  valorant daisuki" );
-           }
-           error_log("///////////////////////////////////////////////////////////////////////");
             $request->session()->flash( 'front.user_register_failure' , true );
             return redirect( route( 'front.index' ) );
         }

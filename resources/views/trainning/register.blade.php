@@ -26,7 +26,7 @@
         @foreach ( $list as $muscle_category )
             <input type="radio" name="muscle_category_id" class="invisible" id="muscle_category{{ $muscle_category->id }}" value="{{ $muscle_category->id }}" @if ( $muscle_category->id == 1 ) checked @endif>
             <label for="muscle_category{{ $muscle_category->id }}"><span>{{ $muscle_category->name }}</sapn></label>
-            @if ( $muscle_category->id == 4 ) <br> @endif
+            @if ( $muscle_category->id == $list[3]->id ) <br> @endif
         @endforeach
         
         <div class="separator"></div>

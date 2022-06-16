@@ -224,7 +224,7 @@ class ResultController extends Controller
             if ( $results->count() !== 0 ) {
                 // X軸のラベルは表示しないため、空文字列をセット数分用意する
                 $chart_list[ 'labels'.$id ] = array_fill( 0 , $results->count() , "" );
-                // １日ごとではなく、セット数ごとで重量を作表する
+                // １日ごとではなく、セット数ごとで重量を描画する
                 foreach ( $results as $result ) {
                     $chart_list[ 'data'.$id ][] = $result->weight;
                 }

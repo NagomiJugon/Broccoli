@@ -34,7 +34,7 @@
         <label class="disabled-label">
         @endif
           <span>{{ $category->name }}</span>
-          @if ( $category->id == 3 ) <br> @endif
+          @if ( $category->id == $muscle_categories[2]->id ) <br> @endif
         </label>
         @endforeach
       </div>

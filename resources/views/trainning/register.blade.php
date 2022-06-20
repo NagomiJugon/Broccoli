@@ -2,6 +2,7 @@
 
 @section( 'head-option' )
     <link rel="stylesheet" type="text/css" href="{{ secure_asset('css/trainning/register.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('css/common.css') }}">
 @endsection( 'head-option' )
 
 @section( 'page-title' )

@@ -1,6 +1,7 @@
 @extends( 'layout' )
 
 @section( 'head-option' )
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('css/common.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ secure_asset('css/result/record.css') }}">
 @endsection( 'head-option' )
 

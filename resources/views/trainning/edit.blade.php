@@ -1,6 +1,7 @@
 @extends( 'layout' )
 
 @section( 'head-option' )
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('css/common.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ secure_asset('css/trainning/edit.css') }}">
 @endsection( 'head-option' )
 
@@ -35,8 +36,6 @@
         </label>
         @endforeach
       </div>
-      <br>
-      
       
       {{-- 全部位の実績一覧 ここから --}}
       <input type="radio" name="muscle_category_id" class="invisible" id="toggle_all" value="0" @if( $muscle_category_id == 0 )checked @endif>
